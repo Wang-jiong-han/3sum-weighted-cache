@@ -1,7 +1,7 @@
 /-
 Adapted from c0ldzy17/Joshua Wharton, proof-factory/3sum-bound,
 commit 8af82141280754b0c46d3dacb926426265da6f99. Apache-2.0.
-Local change: cache digit costs (0,512,1025); ordinary algebraic rank unchanged.
+Local change: cache digit costs (0,1369,2740); ordinary algebraic rank unchanged.
 -/
 import Submission.Weighted.PredecessorTable
 
@@ -91,7 +91,7 @@ theorem meets {pMain pColumn pCell pDigit pZero pErase pRank pSearch N a rows po
     (hspace : powers+(2*N+1)≤ws) (hactiveSpace : activeBase+N≤ws)
     (hws : ws+2*N*rows+N≤lim.space)
     (hbankVals : bv+nb≤lim.space) (hnearVals : nv+nn≤lim.space)
-    (hword : ((nb+nn+2^(2*N+1)+1025*N+1100 : ℕ) : ℤ)≤lim.word)
+    (hword : ((nb+nn+2^(2*N+1)+2740*N+3000 : ℕ) : ℤ)≤lim.word)
     (hcontrols : ((T+N+32 : ℕ) : ℤ)≤lim.word)
     (hread : ∀ j<rows, μ (a+j)=(codes j : ℤ))
     (hbankRead : ∀ j<nb, μ (bank+j)=(bankCodes j : ℤ))

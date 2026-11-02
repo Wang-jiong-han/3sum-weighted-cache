@@ -1,7 +1,7 @@
 /-
 Adapted from c0ldzy17/Joshua Wharton, proof-factory/3sum-bound,
 commit 8af82141280754b0c46d3dacb926426265da6f99. Apache-2.0.
-Local change: cache digit costs (0,512,1025); ordinary algebraic rank unchanged.
+Local change: cache digit costs (0,1369,2740); ordinary algebraic rank unchanged.
 -/
 import Submission.Weighted.FrozenMain
 import Submission.ThreeSum.TernaryConvolution
@@ -16,15 +16,15 @@ set_option maxRecDepth 24000
 
 variable {lim : Limits} {P : Program}
 
-theorem cacheCost_le_linear {N : ℕ} (R : TritWord N) : cacheCost R≤1025*N := by
+theorem cacheCost_le_linear {N : ℕ} (R : TritWord N) : cacheCost R≤2740*N := by
   calc
-    cacheCost R≤∑ i : Fin N, 1025 := by
+    cacheCost R≤∑ i : Fin N, 2740 := by
       unfold WeightedFrozenQueryCost.cacheCost WeightedCache.cost
       apply Finset.sum_le_sum
       intro i _
       generalize R i=d
       fin_cases d <;> norm_num [WeightedFrozenQueryCost.c]
-    _=1025*N := by simp; omega
+    _=2740*N := by simp; omega
 
 /-- Every leaf is instantiated by the checked physical binary search and load.
 There is no supplied value-evaluation oracle in this statement. -/
@@ -46,7 +46,7 @@ theorem meets {N pMain pLookup pSearch pDigit pZero pErase : ℕ}
     (hword : ((bankCount+nearCount+2^(2*N+1)+16 : ℕ) : ℤ)≤lim.word)
     (hNword : 2*(N : ℤ)+3≤lim.word)
     (hcutWord : (T : ℤ)+1≤lim.word)
-    (hcostWord : ((1025*N+1100 : ℕ) : ℤ)≤lim.word)
+    (hcostWord : ((2740*N+3000 : ℕ) : ℤ)≤lim.word)
     (hvalueWord : 4*((4^N : ℕ) : ℤ)*(U : ℤ)+3≤lim.word)
     (hpowers : Powers μ powers (2*N)) (hL : L≤2*N)
     (hbankSmall : bankCount<2^L) (hnearSmall : nearCount<2^L)

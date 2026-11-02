@@ -51,7 +51,7 @@ def headerBody : Stmt :=
   .set 22 (v 8 *' v 3) ;;
   .set 23 ((v 12 +' k 1) *' v 16) ;;
   .set 24 (v 12 *' v 16) ;;
-  .set 25 (k 1024 *' v 22 +' k 3 *' v 20) ;;
+  .set 25 (k 2738 *' v 22 +' k 6 *' v 20) ;;
   .set 26 (v 25 -' v 13 -' k 1) ;;
   .call 190 [v 9,v 10,v 3] 27 ;;
   .set 28 (M (v 0 +' k 99) +' v 24) ;;

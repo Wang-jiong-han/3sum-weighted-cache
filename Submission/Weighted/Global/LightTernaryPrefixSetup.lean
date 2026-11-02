@@ -18,8 +18,8 @@ open WeightedGlobalLocalParameters WeightedGlobalDimensionBounds
 set_option maxHeartbeats 6000000
 set_option maxRecDepth 18000
 
-def N (m j : ℕ) : ℕ := 30000000000000*(j*m)
-def T (m j : ℕ) : ℕ := 3130753934820264*(j*m)
+def N (m j : ℕ) : ℕ := 30000000000000000*(j*m)
+def T (m j : ℕ) : ℕ := 8371360984307726883*(j*m)
 def nb (m j : ℕ) : ℕ := (codes (N m j) (T m j)).length
 
 def header (m j F bank work : ℕ) : List ℤ :=
@@ -27,8 +27,8 @@ def header (m j F bank work : ℕ) : List ℤ :=
 
 def body (pPower pSetup : ℕ) : Stmt :=
   .set 6 (v 0 *' v 1) ;;
-  .set 7 (k 30000000000000 *' v 6) ;;
-  .set 8 (k 3130753934820264 *' v 6) ;;
+  .set 7 (k 30000000000000000 *' v 6) ;;
+  .set 8 (k 8371360984307726883 *' v 6) ;;
   .set 9 (k 2 *' v 7) ;;
   .call pPower [v 2,v 0] 10 ;;
   .call pSetup [v 7,v 8,v 4,v 5] 11 ;;
@@ -43,11 +43,11 @@ def body (pPower pSetup : ℕ) : Stmt :=
   .set 0 (v 3)
 
 def word (m j F : ℕ) : ℕ :=
-  3130753934820264+1025*N m j+j+m+F+(F+1)^(j+1)+4^(N m j+1)+1100
+  8371360984307726883+2740*N m j+j+m+F+(F+1)^(j+1)+4^(N m j+1)+3000
 def time (m j : ℕ) : ℕ := LightNatPower.time j+LightWeightedEnumerationSetup.time (N m j) (T m j)+500
 
 theorem dimensions (m j : ℕ) :
-    N m j=fixedLength (j*m) ∧ T m j=bankCut m j ∧ T m j≤ 1025*N m j := by
+    N m j=fixedLength (j*m) ∧ T m j=bankCut m j ∧ T m j≤ 2740*N m j := by
   unfold N T fixedLength bankCut
   constructor
   · rfl
@@ -83,14 +83,14 @@ theorem meets {pMain pPower pSetup pPowers pEnum m j F dst bank work d : ℕ}
   have hJ:= hbudget j (by unfold word; generalize 4^(N m j+1)=q; omega)
   have hM:= hbudget m (by unfold word; generalize 4^(N m j+1)=q; omega)
   have hF:= hbudget F (by unfold word; generalize 4^(N m j+1)=q; omega)
-  have hconstant:= hbudget 30000000000000 (by unfold word; generalize 4^(N m j+1)=q; omega)
-  have hconstantT := hbudget 3130753934820264 (by unfold word; generalize 4^(N m j+1)=q; omega)
+  have hconstant:= hbudget 30000000000000000 (by unfold word; generalize 4^(N m j+1)=q; omega)
+  have hconstantT := hbudget 8371360984307726883 (by unfold word; generalize 4^(N m j+1)=q; omega)
   have hprod : j*m≤ N m j := by unfold N; omega
   have hjm:= hbudget (j*m) (by unfold word; generalize 4^(N m j+1)=q; omega)
   have hcut:= (dimensions m j).2.2
   have hT:= hbudget (T m j) (by unfold word; generalize 4^(N m j+1)=q; omega)
   have hbig:= hbudget ((F+1)^(j+1)) (by unfold word; generalize 4^(N m j+1)=q; omega)
-  have hcontrol := hbudget (1025*N m j+1100) (by unfold word; generalize 4^(N m j+1)=q; omega)
+  have hcontrol := hbudget (2740*N m j+3000) (by unfold word; generalize 4^(N m j+1)=q; omega)
   have hmask:= hbudget (4^(N m j+1)) (by unfold word; generalize 4^(N m j+1)=q; omega)
   have hpbound : F^j≤ (F+1)^(j+1) :=
     (Nat.pow_le_pow_left (Nat.le_succ _) j).trans
@@ -100,10 +100,10 @@ theorem meets {pMain pPower pSetup pPowers pEnum m j F dst bank work d : ℕ}
   have hbW : (bank:ℤ)≤ lim.word := (Int.ofNat_le.mpr (by omega : bank≤ lim.space)).trans hw
   have hwW : (work:ℤ)≤ lim.word := (Int.ofNat_le.mpr (by omega : work≤ lim.space)).trans hw
   have hpm : (j:ℤ)*(m:ℤ)≤ lim.word := by simpa using hjm
-  have hNN : (30000000000000:ℤ)*((j:ℤ)*(m:ℤ))≤ lim.word := by
+  have hNN : (30000000000000000:ℤ)*((j:ℤ)*(m:ℤ))≤ lim.word := by
     have hh:= hbudget (N m j) (by unfold word; generalize 4^(N m j+1)=q; omega)
     simpa [N,mul_assoc] using hh
-  have hTT : (3130753934820264:ℤ)*((j:ℤ)*(m:ℤ))≤ lim.word := by
+  have hTT : (8371360984307726883:ℤ)*((j:ℤ)*(m:ℤ))≤ lim.word := by
     simpa [T,mul_assoc] using hT
   have hNP : LightNatPower.time j+LightWeightedEnumerationSetup.time (N m j) (T m j)+500=time m j:= rfl
   apply Meets.of_body hmain
@@ -192,7 +192,7 @@ def endAt (free m j : ℕ) : ℕ := headerAt free m j+8
 mask span. No header address, bank length, or power-table pointer is advice. -/
 def allocateBody (pPower pPrefix : ℕ) : Stmt :=
   .set 4 (v 0 *' v 1) ;;
-  .set 5 (k 30000000000000 *' v 4) ;;
+  .set 5 (k 30000000000000000 *' v 4) ;;
   .call pPower [k 4,v 5] 6 ;;
   .set 7 (v 3 +' v 6) ;;
   .set 8 (v 7 +' k 2 *' v 5 +' k 1) ;;
@@ -221,8 +221,8 @@ theorem allocate_meets {pMain pPower pPrefix pSetup pPowers pEnum m j F free d :
   have hN:= hbudget (N m j) (by unfold word; generalize 4^(N m j+1)=q; omega)
   have h2N:= hbudget (2*N m j) (by unfold word; generalize 4^(N m j+1)=q; omega)
   have hjm:= hbudget (j*m) (by unfold word; generalize 4^(N m j+1)=q; omega)
-  have hconstant:= hbudget 30000000000000 (by unfold word; generalize 4^(N m j+1)=q; omega)
-  have hcontrol := hbudget (1025*N m j+1100) (by unfold word; generalize 4^(N m j+1)=q; omega)
+  have hconstant:= hbudget 30000000000000000 (by unfold word; generalize 4^(N m j+1)=q; omega)
+  have hcontrol := hbudget (2740*N m j+3000) (by unfold word; generalize 4^(N m j+1)=q; omega)
   have hmask:= hbudget (4^(N m j+1)) (by unfold word; generalize 4^(N m j+1)=q; omega)
   have hspan : ((4^(N m j):ℕ):ℤ)≤ lim.word :=
     (Int.ofNat_le.mpr (Nat.pow_le_pow_right (by decide) (Nat.le_succ _))).trans hmask
@@ -243,7 +243,7 @@ theorem allocate_meets {pMain pPower pPrefix pSetup pPowers pEnum m j F free d :
     dsimp [workAt]; push_cast; norm_num only [Nat.cast_ofNat]; omega
   have hheader : (headerAt free m j:ℤ)≤lim.word :=by
     dsimp [headerAt,workAt]; push_cast; norm_num only [Nat.cast_ofNat]; omega
-  have hNN : (30000000000000:ℤ)*((j:ℤ)*(m:ℤ))≤ lim.word := by simpa [N] using hN
+  have hNN : (30000000000000000:ℤ)*((j:ℤ)*(m:ℤ))≤ lim.word := by simpa [N] using hN
   have hworkAdd : (free:ℤ)+(4:ℤ)^(N m j)≤ lim.word := by simpa [workAt] using hwork
   have hheaderAdd : (workAt free m j:ℤ)+2*(N m j:ℤ)+1≤ lim.word := by
     simpa [headerAt] using hheader

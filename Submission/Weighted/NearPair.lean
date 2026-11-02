@@ -57,7 +57,7 @@ structure Ready (lim : Limits) {N : ℕ} (rows : ℕ) (c : Config) (μ : ℕ →
   hfr : c.fr≤lim.space
   hcount : c.vals+rows≤c.pcount
   hspace : c.pcount≤lim.space
-  hword : ((c.nb+rows+2^(2*N+1)+1025*N+1100 : ℕ) : ℤ)≤lim.word
+  hword : ((c.nb+rows+2^(2*N+1)+2740*N+3000 : ℕ) : ℤ)≤lim.word
   hcontrols : ((c.T+N+32 : ℕ) : ℤ)≤lim.word
   hmemoWord : ((N+rows+2*N+c.h+20 : ℕ) : ℤ)≤lim.word
   hread : ∀ j<rows, μ (c.a+j)=(address (nearWords j) : ℤ)
@@ -74,7 +74,7 @@ structure Ready (lim : Limits) {N : ℕ} (rows : ℕ) (c : Config) (μ : ℕ →
   hnearPresent : ∀ W, Below W Q → c.T<cacheCost W → ∃ j<rows, nearWords j=W
   hnearRows : ∀ j<rows, Below (nearWords j) Q ∧ c.T<cacheCost (nearWords j)
   hT : c.h≤2*N
-  hh : 1025*c.h≤2*c.T
+  hh : 2740*c.h≤2*c.T
   hbankValues : ∀ j<c.nb, μ (c.bv+j)=binomialZeta source (bankWords j)
   hvalue : ∀ R, |binomialZeta source R|≤c.U
   hV : 2*(N+1)*c.U≤c.V

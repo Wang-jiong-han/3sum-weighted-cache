@@ -38,7 +38,7 @@ theorem envelope_mono {j R : ℕ} (hj : j≤R) :
   have hlog : 0≤Real.log (2:ℝ) := Real.log_nonneg (by norm_num)
   have hent : 0≤WeightedGlobalParameters.queryEntropy := WeightedGlobalParameters.analytic_admissibility.2.1.le
   unfold WeightedGlobalCountFrontendBudget.envelope
-  apply div_le_div_of_nonneg_right _ (pow_pos WeightedGlobalParameters.gibbs_parameters.2.2.1 1024).le
+  apply div_le_div_of_nonneg_right _ (pow_pos WeightedGlobalParameters.gibbs_parameters.2.2.1 2739).le
   apply Real.exp_le_exp.mpr
   exact mul_le_mul_of_nonneg_right
     (mul_le_mul_of_nonneg_right (Nat.cast_le.mpr hlen) hlog) hent

@@ -8,15 +8,15 @@ These statements certify the actual natural cutoffs, including crossing slack.
 namespace ThreeSum.WeightedSchedule
 open TernaryJointType WeightedBankEnumeration
 
-def fixedLength (m : ℕ) : ℕ := 30000000000000*m
+def fixedLength (m : ℕ) : ℕ := 30000000000000000*m
 def fixedPi (m : ℕ) : DigitType :=
-  ![24361752111000*m,4760008248000*m,878239641000*m]
+  ![24361677233089140*m,4759532833568040*m,878789933342820*m]
 def fixedAlpha (m : ℕ) : DigitType :=
-  ![27034502782000*m,2672750671000*m,292746547000*m]
-def sourceRank (m : ℕ) : ℕ := 3258243765000*m
-def bankCut (m : ℕ) : ℕ := 3130753934820264*m
-def dropBudget (m : ℕ) : ℕ := 206565920180736*m
-def treeBudget (m : ℕ) : ℕ := dropBudget m+1024
+  ![27034373627654100*m,2672696394564960*m,292929977780940*m]
+def sourceRank (m : ℕ) : ℕ := 3258556350126840*m
+def bankCut (m : ℕ) : ℕ := 8371360984307726883*m
+def dropBudget (m : ℕ) : ℕ := 552323882206246677*m
+def treeBudget (m : ℕ) : ℕ := dropBudget m+2739
 
 theorem fixedPi_total (m : ℕ) : ∑ d : Fin 3, fixedPi m d = fixedLength m := by
   simp [Fin.sum_univ_three,fixedPi,fixedLength]; omega
@@ -33,7 +33,7 @@ theorem marginal_schedule (m : ℕ) :
   simp [fixedPi,fixedAlpha]; omega
 
 theorem cacheCost_counts {N : ℕ} (Q : TritWord N) :
-    cacheCost Q=512*digitCount Q 1+1025*digitCount Q 2 := by
+    cacheCost Q=1369*digitCount Q 1+2740*digitCount Q 2 := by
   unfold cacheCost WeightedCache.cost digitCount
   rw [Finset.mul_sum,Finset.mul_sum,←Finset.sum_add_distrib]
   apply Finset.sum_congr rfl
@@ -74,10 +74,10 @@ theorem query_outside {m : ℕ} {Q : TritWord (fixedLength m)}
   rw [output_cost hQ]; unfold dropBudget; omega
 
 theorem query_boundary {m : ℕ} {Q : TritWord (fixedLength m)}
-    (hQ : HasType Q (fixedPi m)) : cacheCost Q+1024-bankCut m=treeBudget m := by
+    (hQ : HasType Q (fixedPi m)) : cacheCost Q+2739-bankCut m=treeBudget m := by
   rw [output_cost hQ]; unfold treeBudget; omega
 
-theorem base_layer_covered (m : ℕ) : 1025*sourceRank m≤2*bankCut m := by
+theorem base_layer_covered (m : ℕ) : 2740*sourceRank m≤2*bankCut m := by
   unfold sourceRank bankCut; omega
 
 theorem source_rank_bounded (m : ℕ) : sourceRank m≤2*fixedLength m := by

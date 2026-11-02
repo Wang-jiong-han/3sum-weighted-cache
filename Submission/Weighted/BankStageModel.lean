@@ -1,7 +1,7 @@
 /-
 Adapted from c0ldzy17/Joshua Wharton, proof-factory/3sum-bound,
 commit 8af82141280754b0c46d3dacb926426265da6f99. Apache-2.0.
-Local change: cache digit costs (0,512,1025); ordinary algebraic rank unchanged.
+Local change: cache digit costs (0,1369,2740); ordinary algebraic rank unchanged.
 -/
 import Submission.Weighted.Cache
 import Submission.ThreeSum.TernaryFrozenQueryStages
@@ -18,8 +18,8 @@ set_option maxHeartbeats 3000000
 
 structure Enumeration (N T n : ℕ) where
   word : ℕ→TritWord N
-  mem : ∀ j<n, WeightedCache.cost ![0,512,1025] (word j)≤T
-  complete : ∀ R : TritWord N, WeightedCache.cost ![0,512,1025] R≤T → ∃ j<n, word j=R
+  mem : ∀ j<n, WeightedCache.cost ![0,1369,2740] (word j)≤T
+  complete : ∀ R : TritWord N, WeightedCache.cost ![0,1369,2740] R≤T → ∃ j<n, word j=R
 
 def lowerWord {N : ℕ} (R : TritWord N) (i : Fin N) (e : Fin 3) : TritWord N :=
   Function.update R i (min e (R i))

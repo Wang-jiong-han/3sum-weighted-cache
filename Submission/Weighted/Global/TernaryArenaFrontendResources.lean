@@ -40,7 +40,7 @@ theorem resources {lim : Limits} {free C N R A bank nb bv T h wsSlot rows groups
     (hws : wsSlot=58 ∨ wsSlot=62)
     (hrows : rows≤R) (hR : R≤C) (hN : N≤C) (hpowers : 2*N+1≤C)
     (hmetadata : 2*N*R+N≤C) (hdivision : eulerBound N A+3≤C)
-    (hCut : T≤1025*N) (hT : h≤2*N) (hh : 1025*h≤2*T) (hnb : nb<2^(2*N)) (hnn : rows<2^(2*N)) (hpos : 0<nb)
+    (hCut : T≤2740*N) (hT : h≤2*N) (hh : 2740*h≤2*T) (hnb : nb<2^(2*N)) (hnn : rows<2^(2*N)) (hpos : 0<nb)
     (hbank : bank+nb≤addr free C 54) (hbv : bv+nb≤addr free C 54)
     (hend : finish free C≤lim.space) (hw : (lim.space : ℤ)≤lim.word)
     (hword : (word N nb groups count R A : ℤ)≤lim.word)
@@ -56,7 +56,7 @@ theorem resources {lim : Limits} {free C N R A bank nb bv T h wsSlot rows groups
     region_space (by unfold slots; omega) hdivision hend
   have hlog : Nat.log 2 (eulerBound N A+1)≤eulerBound N A+1 := Nat.log_le_self _ _
   obtain ⟨hc,hc',hd,_,_,_,_,_,_⟩ := controls N nb groups count R A
-  have hcZ : ((nb+rows+2^(2*N+1)+1025*N+1100 : ℕ) : ℤ)≤lim.word :=
+  have hcZ : ((nb+rows+2^(2*N+1)+2740*N+3000 : ℕ) : ℤ)≤lim.word :=
     (Int.ofNat_le.mpr (by omega)).trans hword
   have hdZ : ((4*eulerBound N A+8*N+16 : ℕ) : ℤ)≤lim.word :=
     (Int.ofNat_le.mpr hd).trans hword
@@ -108,7 +108,7 @@ theorem plan {lim : Limits} {free C N R A bank nb fbv gbv T fh gh bankValues gro
     (Q : TritWord N) (E : Enumeration N T nb) (F G : TritWord N→ℤ)
     (hrows : rows Q T≤R) (hR : R≤C) (hN : N≤C) (hpowers : 2*N+1≤C)
     (hmetadata : 2*N*R+N≤C) (hdivision : eulerBound N A+3≤C)
-    (hCut : T≤1025*N) (hfDegree : fh≤2*N) (hgDegree : gh≤2*N) (hfh : 1025*fh≤2*T) (hgh : 1025*gh≤2*T)
+    (hCut : T≤2740*N) (hfDegree : fh≤2*N) (hgDegree : gh≤2*N) (hfh : 2740*fh≤2*T) (hgh : 2740*gh≤2*T)
     (hnb : nb<2^(2*N)) (hnn : rows Q T<2^(2*N)) (hpos : 0<nb)
     (hbank : bank+nb≤addr free C 54) (hfbv : fbv+nb≤addr free C 54)
     (hgbv : gbv+nb≤addr free C 54) (hH : bankValues+(N+1)*nb≤addr free C 54)

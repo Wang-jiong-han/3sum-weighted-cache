@@ -251,13 +251,13 @@ theorem weighted_bank_contains_base {N h T C : ℕ} (c : Fin 3 → ℕ)
   simpa [bank] using hh.trans ((Nat.mul_le_mul_left C hR).trans hcut)
 
 -- A concrete integer cache shape close to the numerical optimizer.
--- Cache costs (0,512,1025) are distinct from algebraic ranks (0,1,2).
-theorem concrete_cost_mono : Monotone (![0, 512, 1025] : Fin 3 → ℕ) := by
+-- Cache costs (0,1369,2740) are distinct from algebraic ranks (0,1,2).
+theorem concrete_cost_mono : Monotone (![0, 1369, 2740] : Fin 3 → ℕ) := by
   intro a b hab
   fin_cases a <;> fin_cases b <;> norm_num [Fin.le_def] at *
 
 theorem concrete_base_bound {N : ℕ} (R : Word N) :
-    2 * cost ![0, 512, 1025] R ≤ 1025 * rank R := by
+    2 * cost ![0, 1369, 2740] R ≤ 2740 * rank R := by
   unfold cost rank
   rw [mul_sum, mul_sum]
   apply sum_le_sum
@@ -265,10 +265,10 @@ theorem concrete_base_bound {N : ℕ} (R : Word N) :
   generalize R i = d
   fin_cases d <;> norm_num
 
-theorem concrete_contains_base {N h T : ℕ} (hcut : 1025 * h ≤ 2 * T)
-    (R : Word N) (hR : rank R ≤ h) : R ∈ bank N ![0, 512, 1025] T := by
+theorem concrete_contains_base {N h T : ℕ} (hcut : 2740 * h ≤ 2 * T)
+    (R : Word N) (hR : rank R ≤ h) : R ∈ bank N ![0, 1369, 2740] T := by
   have hc := concrete_base_bound R
-  have hr := Nat.mul_le_mul_left 1025 hR
+  have hr := Nat.mul_le_mul_left 2740 hR
   simp only [bank, mem_filter, mem_univ, true_and]
   omega
 

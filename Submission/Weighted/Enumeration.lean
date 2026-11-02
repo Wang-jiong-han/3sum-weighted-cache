@@ -1,7 +1,7 @@
 /-
 Adapted from c0ldzy17/Joshua Wharton, proof-factory/3sum-bound,
 commit 8af82141280754b0c46d3dacb926426265da6f99. Apache-2.0.
-Local change: cache digit costs (0,512,1025); ordinary algebraic rank unchanged.
+Local change: cache digit costs (0,1369,2740); ordinary algebraic rank unchanged.
 -/
 import Mathlib.Data.List.Nodup
 import Mathlib.Data.List.Range
@@ -17,11 +17,11 @@ This is an enumeration lemma, not a machine-model running-time theorem.
 
 namespace ThreeSum.WeightedEnumeration
 
-def digitCost (d : ℕ) : ℕ := if d = 2 then 1025 else 512*d
+def digitCost (d : ℕ) : ℕ := if d = 2 then 2740 else 1369*d
 
 @[simp] theorem digitCost_zero : digitCost 0 = 0 := by norm_num [digitCost]
-@[simp] theorem digitCost_one : digitCost 1 = 512 := by norm_num [digitCost]
-@[simp] theorem digitCost_two : digitCost 2 = 1025 := by norm_num [digitCost]
+@[simp] theorem digitCost_one : digitCost 1 = 1369 := by norm_num [digitCost]
+@[simp] theorem digitCost_two : digitCost 2 = 2740 := by norm_num [digitCost]
 
 def digits (t : ℕ) : List ℕ := (List.range 3).filter (fun d => digitCost d ≤ t)
 

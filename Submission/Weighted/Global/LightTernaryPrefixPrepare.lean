@@ -61,7 +61,7 @@ theorem meets {lim : Limits} {P : Program}
     (htemplate : template+106≤liveHeader) (hheader : liveHeader+106≤liveSeed)
     (hseed : liveSeed+48≤prefixFree)
     (hF : μ (template+99)=(Fbase:ℤ)) (hG : μ (template+100)=(Gbase:ℤ))
-    (hD : LightWeightedGlobalPrefixSetup.T m (j+1)+1024≤(1024*(alphaRank*(j+1))+3*(alpha2*(j+1))))
+    (hD : LightWeightedGlobalPrefixSetup.T m (j+1)+2739≤(2738*(alphaRank*(j+1))+6*(alpha2*(j+1))))
     (hN1 : (LightWeightedGlobalPrefixSetup.N m (j+1):ℤ)+1≤lim.word)
     (hfits : ∀x∈(LightWeightedGlobalPrefixHeader.args template liveHeader
       (LightWeightedGlobalPrefixSetup.headerAt prefixFree m (j+1)) (j+1) m p power alpha2 alphaRank localQ radix J++

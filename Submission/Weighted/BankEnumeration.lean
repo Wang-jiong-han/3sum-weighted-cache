@@ -1,7 +1,7 @@
 /-
 Adapted from c0ldzy17/Joshua Wharton, proof-factory/3sum-bound,
 commit 8af82141280754b0c46d3dacb926426265da6f99. Apache-2.0.
-Local change: cache digit costs (0,512,1025); ordinary algebraic rank unchanged.
+Local change: cache digit costs (0,1369,2740); ordinary algebraic rank unchanged.
 -/
 import Submission.Weighted.Addresses
 import Submission.Weighted.Cache
@@ -16,11 +16,11 @@ namespace ThreeSum.WeightedBankEnumeration
 open ThreeSum.WeightedEnumeration ThreeSum.WeightedAddresses
 open ThreeSum.TernaryJointType
 
-def bank (N T : ℕ) := WeightedCache.bank N ![0,512,1025] T
-def cacheCost {N : ℕ} (R : TritWord N) := WeightedCache.cost ![0,512,1025] R
+def bank (N T : ℕ) := WeightedCache.bank N ![0,1369,2740] T
+def cacheCost {N : ℕ} (R : TritWord N) := WeightedCache.cost ![0,1369,2740] R
 @[simp] theorem mem_bank {N T : ℕ} {R : TritWord N} : R ∈ bank N T ↔ cacheCost R≤T := by
   simp [bank,WeightedCache.bank,cacheCost]
-theorem digitCost_eq (d : Fin 3) : digitCost d.val = (![0,512,1025] : Fin 3→ℕ) d := by
+theorem digitCost_eq (d : Fin 3) : digitCost d.val = (![0,1369,2740] : Fin 3→ℕ) d := by
   fin_cases d <;> norm_num [digitCost]
 
 
@@ -90,9 +90,9 @@ theorem codes_length_eq_bank_card (N T : ℕ) :
   exact Finset.card_image_of_injective _ (wordList_injective N)
 
 theorem codes_length_gibbs (N T : ℕ) (y : ℝ) (hy : 0≤y) (hy1 : y≤1) :
-    (codes N T).length*y^T ≤ (1+y^512+y^1025)^N := by
+    (codes N T).length*y^T ≤ (1+y^1369+y^2740)^N := by
   rw [codes_length_eq_bank_card]
-  have hh := WeightedCache.bank_card_gibbs N ![0,512,1025] T y hy hy1
+  have hh := WeightedCache.bank_card_gibbs N ![0,1369,2740] T y hy hy1
   simpa [bank,Fin.sum_univ_succ,add_assoc] using hh
 
 end ThreeSum.WeightedBankEnumeration

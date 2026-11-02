@@ -1,7 +1,7 @@
 /-
 Adapted from c0ldzy17/Joshua Wharton, proof-factory/3sum-bound,
 commit 8af82141280754b0c46d3dacb926426265da6f99. Apache-2.0.
-Local change: cache digit costs (0,512,1025); ordinary algebraic rank unchanged.
+Local change: cache digit costs (0,1369,2740); ordinary algebraic rank unchanged.
 -/
 import Submission.Weighted.LightNearEnumeration
 
@@ -25,9 +25,9 @@ theorem meets {pMain pBranch W powers : ℕ}
     (hw : (lim.space : ℤ)≤lim.word)
     (hspace : powers+(2*W+1)≤lim.space)
     (hword : ((4^(W+1) : ℕ) : ℤ)≤lim.word)
-    (hcontrol : ((1025*W+1100 : ℕ) : ℤ)≤lim.word) :
+    (hcontrol : ((2740*W+3000 : ℕ) : ℤ)≤lim.word) :
     ∀ qs : List ℕ, ∀ D pref dst caps : ℕ, ∀ μ : ℕ→ℤ,
-      (∀ q∈qs, q<3) → qs.length≤W → D≤1025*W → pref+4^qs.length≤4^W →
+      (∀ q∈qs, q<3) → qs.length≤W → D≤2740*W → pref+4^qs.length≤4^W →
       dst+(words qs D).length≤powers → dst+(words qs D).length≤caps →
       caps+qs.length≤lim.space → Powers μ powers (2*W) →
       Seg μ caps (qs.map (fun q => (digitCost q : ℤ))) →
@@ -228,8 +228,8 @@ theorem program_meets {W powers D pref dst caps d : ℕ} {qs : List ℕ} {μ : �
     (hw : (lim.space : ℤ)≤lim.word)
     (hspace : powers+(2*W+1)≤lim.space)
     (hword : ((4^(W+1) : ℕ) : ℤ)≤lim.word)
-    (hcontrol : ((1025*W+1100 : ℕ) : ℤ)≤lim.word)
-    (hqs : ∀ q∈qs, q<3) (hN : qs.length≤W) (hD : D≤1025*W)
+    (hcontrol : ((2740*W+3000 : ℕ) : ℤ)≤lim.word)
+    (hqs : ∀ q∈qs, q<3) (hN : qs.length≤W) (hD : D≤2740*W)
     (hprefix : pref+4^qs.length≤4^W)
     (hdstP : dst+(words qs D).length≤powers)
     (hdstC : dst+(words qs D).length≤caps) (hcspace : caps+qs.length≤lim.space)

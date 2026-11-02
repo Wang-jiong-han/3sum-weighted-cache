@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "official_issue_parser_accepts_generated_body": true,
+  "bound": "384055881637/200000000000",
+  "board_commit": "8e1f36a037408435b8e5210972eae9d7285e8745",
+  "board_sha256": "9f042ee4f9d8fd6802a281d65b5c58bc135b96f7fc9b5940c3f606247bc91492",
+  "verified_gate_bound": "96013971/50000000",
+  "verified_leaders": [
+    "direct-issue-92"
+  ],
+  "candidate_strictly_improves_verified_gate": true,
+  "board_url": "https://github.com/bigospeedrun/site/blob/8e1f36a037408435b8e5210972eae9d7285e8745/data/3sum.json"
+}

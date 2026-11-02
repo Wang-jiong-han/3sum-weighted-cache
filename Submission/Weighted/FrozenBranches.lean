@@ -1,7 +1,7 @@
 /-
 Adapted from c0ldzy17/Joshua Wharton, proof-factory/3sum-bound,
 commit 8af82141280754b0c46d3dacb926426265da6f99. Apache-2.0.
-Local change: cache digit costs (0,512,1025); ordinary algebraic rank unchanged.
+Local change: cache digit costs (0,1369,2740); ordinary algebraic rank unchanged.
 -/
 import Submission.Weighted.Enumeration
 import Submission.Weighted.Frozen
@@ -17,11 +17,11 @@ def branches (pSelf : ℕ) : Stmt :=
   .ite (v 13 =' k 0)
     (.call pSelf (childArgs (v 14) (k 0)) 0)
     (.ite (v 13 =' k 1)
-      (.call pSelf (childArgs (v 14) (k 512)) 18 ;;
+      (.call pSelf (childArgs (v 14) (k 1369)) 18 ;;
         .call pSelf (childArgs (v 15) (k 0)) 19 ;;
         .set 0 (v 19 -' v 18))
-      (.call pSelf (childArgs (v 14) (k 1025)) 18 ;;
-        .call pSelf (childArgs (v 15) (k 513)) 19 ;;
+      (.call pSelf (childArgs (v 14) (k 2740)) 18 ;;
+        .call pSelf (childArgs (v 15) (k 1371)) 19 ;;
         .call pSelf (childArgs (v 4) (k 0)) 20 ;;
         .set 0 (v 20 -' k 2 *' v 19 +' v 18)))
 
@@ -84,7 +84,7 @@ theorem branches_meets {pSelf d : ℕ}
   · have hc0 := hchild 0 (by decide)
     have hc1 := hchild 1 (by decide)
     norm_num [inputs,digitCost] at hc0 hc1 hrank 
-    have hdrop := hdropFirst 512 (by decide)
+    have hdrop := hdropFirst 1369 (by decide)
     light_if he hn : (1 : ℤ) = 0
     · exfalso; omega
     · light_if he hn : (1 : ℤ) = 1
@@ -99,8 +99,8 @@ theorem branches_meets {pSelf d : ℕ}
     have hc1 := hchild 1 (by decide)
     have hc2 := hchild 2 (by decide)
     norm_num [inputs,digitCost] at hc0 hc1 hc2 hrank 
-    have hdrop1 := hdropFirst 513 (by decide)
-    have hdrop2 := hdropFirst 1025 (by decide)
+    have hdrop1 := hdropFirst 1371 (by decide)
+    have hdrop2 := hdropFirst 2740 (by decide)
     light_if he hn : (2 : ℤ) = 0
     · exfalso; omega
     · light_if he hn : (2 : ℤ) = 1

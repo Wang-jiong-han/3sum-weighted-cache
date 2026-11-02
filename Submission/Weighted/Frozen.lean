@@ -1,7 +1,7 @@
 /-
 Adapted from c0ldzy17/Joshua Wharton, proof-factory/3sum-bound,
 commit 8af82141280754b0c46d3dacb926426265da6f99. Apache-2.0.
-Local change: cache digit costs (0,512,1025); ordinary algebraic rank unchanged.
+Local change: cache digit costs (0,1369,2740); ordinary algebraic rank unchanged.
 -/
 import Submission.ThreeSum.LightTernaryQueryLookup
 import Submission.ThreeSum.LightTernaryCodes
@@ -45,11 +45,11 @@ def body (pSelf pLookup pDigit pZero pErase : ℕ) : Stmt :=
         .ite (v 13 =' k 0)
           (.call pSelf (childArgs (v 14) (k 0)) 0)
           (.ite (v 13 =' k 1)
-            (.call pSelf (childArgs (v 14) (k 512)) 18 ;;
+            (.call pSelf (childArgs (v 14) (k 1369)) 18 ;;
               .call pSelf (childArgs (v 15) (k 0)) 19 ;;
               .set 0 (v 19 -' v 18))
-            (.call pSelf (childArgs (v 14) (k 1025)) 18 ;;
-              .call pSelf (childArgs (v 15) (k 513)) 19 ;;
+            (.call pSelf (childArgs (v 14) (k 2740)) 18 ;;
+              .call pSelf (childArgs (v 15) (k 1371)) 19 ;;
               .call pSelf (childArgs (v 4) (k 0)) 20 ;;
               .set 0 (v 20 -' k 2 *' v 19 +' v 18)))))
 

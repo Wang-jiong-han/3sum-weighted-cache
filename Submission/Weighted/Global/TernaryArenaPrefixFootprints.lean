@@ -247,7 +247,7 @@ def numbers {p m F : ℕ} [Fact p.Prime] (maps : Fin F→Weight m p)
       3*LightTernaryAppendKeys.word (J+2) p p (p^j)+
       p^j+J+16+p+R+F+Z+(8*P+4*p+16)+(2*R)^j+(2*F)^j+n+j+
       2*(n*n+n+p^j*p+16)
-    prefixCells := Q+2*N+9+3130753934820264+1025*N+j+m+F+(F+1)*(F+1)^j+4*Q+1100
+    prefixCells := Q+2*N+9+8371360984307726883+2740*N+j+m+F+(F+1)*(F+1)^j+4*Q+3000
     bankCells := G*(N+1)*Q+4*Q+2*N+1
     nearMetadata := 2*N*Q+N
     nearDivision := eulerV+3
@@ -272,8 +272,8 @@ def numbers {p m F : ℕ} [Fact p.Prime] (maps : Fin F→Weight m p)
     candidateScore := n^2+(2^(fixedPi m 2*K))^j*count*((n*W^j)^2)^K*
       Λ^(2*K)*(((2*K).factorial*(2*R+1)^(2*K))^2)
     prefixHeader := 106+100*(j+m+p+p^j+fixedAlpha m 2+WeightedGlobalArenaSourceSetup.alphaRank m+2*R+J+
-      N+3130753934820264*m*j+2*N+F^j+Q+p^j*p+fixedAlpha m 2*j+A+WeightedGlobalArenaSourceSetup.alphaRank m*j+
-      (N+1)*Q+N*Q+(1024*(WeightedGlobalArenaSourceSetup.alphaRank m*j)+3*(fixedAlpha m 2*j))+(R+1)^j+(p^(2*K))^j*p^(2*K)+
+      N+8371360984307726883*m*j+2*N+F^j+Q+p^j*p+fixedAlpha m 2*j+A+WeightedGlobalArenaSourceSetup.alphaRank m*j+
+      (N+1)*Q+N*Q+(2738*(WeightedGlobalArenaSourceSetup.alphaRank m*j)+6*(fixedAlpha m 2*j))+(R+1)^j+(p^(2*K))^j*p^(2*K)+
       9^j*n^2*9+
       LightTernaryInitialBudgets.word K b (p^(2*K)) drift scale n J (n*2^J)*
         (drift*scale)^j*drift*scale+

@@ -1,7 +1,7 @@
 /-
 Adapted from c0ldzy17/Joshua Wharton, proof-factory/3sum-bound,
 commit 8af82141280754b0c46d3dacb926426265da6f99. Apache-2.0.
-Local change: cache digit costs (0,512,1025); ordinary algebraic rank unchanged.
+Local change: cache digit costs (0,1369,2740); ordinary algebraic rank unchanged.
 -/
 import Submission.Weighted.NearEnumeration
 import Submission.Weighted.BankEnumeration
@@ -15,8 +15,8 @@ open ThreeSum.TernaryJointType ThreeSum.WeightedBankEnumeration
 open WeightedCache (Below)
 open ThreeSum.WeightedEnumeration (digitCost)
 
-def nearWords {N : ℕ} (Q : TritWord N) (D : ℕ) := WeightedCache.near ![0,512,1025] Q D
-def deficit {N : ℕ} (Q R : TritWord N) := WeightedCache.deficit ![0,512,1025] Q R
+def nearWords {N : ℕ} (Q : TritWord N) (D : ℕ) := WeightedCache.near ![0,1369,2740] Q D
+def deficit {N : ℕ} (Q R : TritWord N) := WeightedCache.deficit ![0,1369,2740] Q R
 @[simp] theorem mem_nearWords {N D : ℕ} {Q R : TritWord N} :
     R∈nearWords Q D ↔ Below R Q ∧ deficit Q R≤D := by simp [nearWords,WeightedCache.near,deficit]
 
@@ -87,14 +87,14 @@ theorem visits_le_nearWords {N : ℕ} (Q : TritWord N) (D : ℕ) :
 theorem codes_length_gibbs {N : ℕ} (Q : TritWord N) (D : ℕ) (z : ℝ)
     (hz : 0 ≤ z) (hz1 : z ≤ 1) :
     (WeightedNearEnumeration.codes (wordList Q) D).length*z^D ≤
-      ∏ i : Fin N, (if Q i=0 then 1 else if Q i=1 then 1+z^512 else 1+z^513+z^1025) := by
+      ∏ i : Fin N, (if Q i=0 then 1 else if Q i=1 then 1+z^1369 else 1+z^1371+z^2740) := by
   rw [codes_length_eq_nearWords_card]
-  have hh := WeightedCache.near_card_gibbs ![0,512,1025] Q D z hz hz1
-  have hp : (∏ i : Fin N, ∑ r : Fin 3, WeightedCache.digitWeight ![0,512,1025] z (Q i) r) =
-      ∏ i : Fin N, (if Q i=0 then 1 else if Q i=1 then 1+z^512 else 1+z^513+z^1025) := by
+  have hh := WeightedCache.near_card_gibbs ![0,1369,2740] Q D z hz hz1
+  have hp : (∏ i : Fin N, ∑ r : Fin 3, WeightedCache.digitWeight ![0,1369,2740] z (Q i) r) =
+      ∏ i : Fin N, (if Q i=0 then 1 else if Q i=1 then 1+z^1369 else 1+z^1371+z^2740) := by
     apply Finset.prod_congr rfl
     intro i _
-    simpa using WeightedCache.ternary_digit_polynomial 512 1025 z (Q i)
+    simpa using WeightedCache.ternary_digit_polynomial 1369 2740 z (Q i)
   simpa only [←hp,nearWords] using hh
 
 #print axioms codes_length_gibbs

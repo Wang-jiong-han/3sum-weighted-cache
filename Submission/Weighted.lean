@@ -4,7 +4,7 @@ import Submission.Weighted.Global.TernaryFinalSolver
 `Submission.lean` and its baseline theorem are preserved byte for byte. -/
 namespace WeightedRace
 
-theorem bound : EndStatement.ThreeSum.SolvedInTime (96013971 / 50000000 : Rat) :=
-  ThreeSum.weighted_solvedInTime_96013971_50000000
+theorem bound : EndStatement.ThreeSum.SolvedInTime (384055881637/200000000000 : Rat) :=
+  ThreeSum.optimized_solvedInTime_384055881637_200000000000
 
 end WeightedRace

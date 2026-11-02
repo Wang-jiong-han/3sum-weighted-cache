@@ -1,7 +1,7 @@
 /-
 Adapted from c0ldzy17/Joshua Wharton, proof-factory/3sum-bound,
 commit 8af82141280754b0c46d3dacb926426265da6f99. Apache-2.0.
-Local change: cache digit costs (0,512,1025); ordinary algebraic rank unchanged.
+Local change: cache digit costs (0,1369,2740); ordinary algebraic rank unchanged.
 -/
 import Submission.Weighted.FrozenPrepare
 import Submission.Weighted.FrozenQueryCost
@@ -54,7 +54,7 @@ theorem queryTime_step {N K : ℕ} (L T : ℕ) (R : TritWord N) (hK : K<N)
 
 theorem queryTime_near_card {N : ℕ} (L T K : ℕ) (hK : K≤N) (R : TritWord N) :
     queryTime L T K R≤10000*(N+L+1)*(K+1)*
-      (WeightedNearBankEnumeration.nearWords (capWord (coords N K) R) (cacheCost R+1024-T)).card := by
+      (WeightedNearBankEnumeration.nearWords (capWord (coords N K) R) (cacheCost R+2739-T)).card := by
   have hw := work_le_capWord_card T (coords N K) (coords_nodup N K) R
   have h := Nat.mul_le_mul_left (10000*(N+L+1)) hw
   simpa [queryTime,coords_length hK,Nat.mul_assoc] using h
@@ -78,8 +78,8 @@ theorem full_capWord_digitCount {N : ℕ} (R : TritWord N) (d : Fin 3) :
 
 theorem queryTime_gibbs {N : ℕ} (L T : ℕ) (R : TritWord N)
     (z : ℝ) (hz : 0≤z) (hz1 : z≤1) :
-    (queryTime L T N R : ℝ)*z^(cacheCost R+1024-T)≤
-      10000*(N+L+1)*(N+1)*(1+z^512)^digitCount R 1*(1+z^513+z^1025)^digitCount R 2 := by
+    (queryTime L T N R : ℝ)*z^(cacheCost R+2739-T)≤
+      10000*(N+L+1)*(N+1)*(1+z^1369)^digitCount R 1*(1+z^1371+z^2740)^digitCount R 2 := by
   have hg := work_gibbs_counts T (coords N N) (coords_nodup N N) R z hz hz1
   have hm := mul_le_mul_of_nonneg_left hg
     (by positivity : (0 : ℝ)≤10000*(N+L+1))

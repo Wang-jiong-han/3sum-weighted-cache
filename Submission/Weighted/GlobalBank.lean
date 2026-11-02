@@ -26,13 +26,13 @@ theorem cost_add_deficit {N : ℕ} {R Q : TritWord N} (h : Below R Q) :
   WeightedCache.cost_add_deficit WeightedCache.concrete_cost_mono h
 
 theorem bank_card_gibbs (N T : ℕ) (y : ℝ) (hy : 0≤y) (hy1 : y≤1) :
-    (bank N T).card*y^T≤(1+y^512+y^1025)^N := by
+    (bank N T).card*y^T≤(1+y^1369+y^2740)^N := by
   simpa only [WeightedBankEnumeration.codes_length_eq_bank_card] using
     WeightedBankEnumeration.codes_length_gibbs N T y hy hy1
 
 theorem nearWords_card_gibbs_counts {N : ℕ} (Q : TritWord N) (D : ℕ)
     (z : ℝ) (hz : 0≤z) (hz1 : z≤1) :
-    (nearWords Q D).card*z^D≤(1+z^512)^digitCount Q 1*(1+z^513+z^1025)^digitCount Q 2 := by
+    (nearWords Q D).card*z^D≤(1+z^1369)^digitCount Q 1*(1+z^1371+z^2740)^digitCount Q 2 := by
   have h := WeightedNearBankEnumeration.codes_length_gibbs Q D z hz hz1
   rwa [WeightedNearBankEnumeration.codes_length_eq_nearWords_card,
     WeightedFrozenQueryCost.polynomial_product_counts] at h

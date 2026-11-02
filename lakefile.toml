@@ -1,5 +1,6 @@
-name = "WeightedThreeSum"
-version = "0.1.0"
+name = "ThreeSumCache"
+version = "1.0.0"
+packagesDir = ".lake/packages"
 [leanOptions]
 autoImplicit = false
 [[require]]

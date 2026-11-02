@@ -73,13 +73,13 @@ theorem bank_charge_eq {m : ℕ} (hm : 0 < m) :
 theorem endpoint_charge_eq {m : ℕ} (hm : 0 < m) :
     2*Real.log (endpointSize m : ℝ)/Real.log (outputSize m : ℝ)=endpointCharge m := by
   unfold endpointCharge endpointRate outputRate
-  have hL : (fixedLength m : ℝ) ≠ 0 := by unfold fixedLength; exact_mod_cast (Nat.mul_pos (by decide : 0 < 30000000000000) hm).ne'
+  have hL : (fixedLength m : ℝ) ≠ 0 := by unfold fixedLength; exact_mod_cast (Nat.mul_pos (by decide : 0 < 30000000000000000) hm).ne'
   field_simp [output_log_pos hm |>.ne',hL,log_two_pos.ne'] <;> ring
 
 theorem histogram_charge_eq {m : ℕ} (hm : 0 < m) :
     2*Real.log (prime m : ℝ)/Real.log (outputSize m : ℝ)=histogramCharge m := by
   unfold histogramCharge primeRate outputRate
-  have hL : (fixedLength m : ℝ) ≠ 0 := by unfold fixedLength; exact_mod_cast (Nat.mul_pos (by decide : 0 < 30000000000000) hm).ne'
+  have hL : (fixedLength m : ℝ) ≠ 0 := by unfold fixedLength; exact_mod_cast (Nat.mul_pos (by decide : 0 < 30000000000000000) hm).ne'
   field_simp [output_log_pos hm |>.ne',hL,log_two_pos.ne'] <;> ring
 
 theorem actual_bank_prefix_bound {m n j : ℕ} (hm : 0 < m) (hn : 1 < n)
@@ -135,13 +135,13 @@ theorem query_slope_pos {m : ℕ} (hm : 0 < m) (hs : primeRate m < outputRate m)
 theorem query_charge_eq {m : ℕ} (hm : 0 < m) :
     1+2*querySlope m/Real.log (outputSize m : ℝ)=queryCharge m := by
   unfold queryCharge querySlope incidenceSlope outputRate primeRate
-  have hL : (fixedLength m : ℝ) ≠ 0 := by unfold fixedLength; exact_mod_cast (Nat.mul_pos (by decide : 0 < 30000000000000) hm).ne'
+  have hL : (fixedLength m : ℝ) ≠ 0 := by unfold fixedLength; exact_mod_cast (Nat.mul_pos (by decide : 0 < 30000000000000000) hm).ne'
   field_simp [output_log_pos hm |>.ne',hL,log_two_pos.ne'] <;> ring
 
 theorem incidence_charge_eq {m : ℕ} (hm : 0 < m) :
     1+2*incidenceSlope m/Real.log (outputSize m : ℝ)=incidenceCharge m := by
   unfold incidenceCharge incidenceSlope outputRate primeRate
-  have hL : (fixedLength m : ℝ) ≠ 0 := by unfold fixedLength; exact_mod_cast (Nat.mul_pos (by decide : 0 < 30000000000000) hm).ne'
+  have hL : (fixedLength m : ℝ) ≠ 0 := by unfold fixedLength; exact_mod_cast (Nat.mul_pos (by decide : 0 < 30000000000000000) hm).ne'
   field_simp [output_log_pos hm |>.ne',hL,log_two_pos.ne'] <;> ring
 
 /-- The literal wanted-volume/query-dimension expression, including its
@@ -153,12 +153,12 @@ theorem query_dimension_expression_bound {m n j : ℕ} (hm : 0 < m) (hn : 1 < n)
     (hQ : TernaryJointType.HasType Q (fixedPi (j*m))) :
     (n : ℝ)*((outputSize m : ℝ)/prime m)^j*
       (WeightedGlobalBank.nearWords Q (queryDeficit m j)).card ≤
-      (Real.exp (querySlope m)/z^1024)*(n : ℝ)^queryCharge m := by
+      (Real.exp (querySlope m)/z^2739)*(n : ℝ)^queryCharge m := by
   have hM : 1 < outputSize m := by have := outputSize_ge_sixteen hm; omega
   have hMr : 0 < (outputSize m : ℝ) := by exact_mod_cast lt_trans Nat.zero_lt_one hM
   have hpr : 0 < (prime m : ℝ) := by exact_mod_cast (prime_prime m).pos
   have hnR : 0 < (n : ℝ) := by exact_mod_cast lt_trans Nat.zero_lt_one hn
-  have hz := pow_pos gibbs_parameters.2.2.1 1024
+  have hz := pow_pos gibbs_parameters.2.2.1 2739
   have hratio := div_pos hMr hpr
   have hc : 0 < ((WeightedGlobalBank.nearWords Q (queryDeficit m j)).card : ℝ) := by
     exact_mod_cast near_pos Q (queryDeficit m j)
@@ -166,7 +166,7 @@ theorem query_dimension_expression_bound {m n j : ℕ} (hm : 0 < m) (hn : 1 < n)
   have he : (fixedLength (j*m) : ℝ)*Real.log 2*queryEntropy=
       (j : ℝ)*((fixedLength m : ℝ)*Real.log 2*queryEntropy) := by unfold fixedLength; push_cast; ring
   rw [he] at hq
-  have hlog : Real.log (z^1024*((outputSize m : ℝ)/prime m)^j*
+  have hlog : Real.log (z^2739*((outputSize m : ℝ)/prime m)^j*
       (WeightedGlobalBank.nearWords Q (queryDeficit m j)).card) ≤ (j : ℝ)*querySlope m := by
     rw [Real.log_mul (mul_pos hz (pow_pos hratio _)).ne' hc.ne',
       Real.log_mul hz.ne' (pow_pos hratio _).ne',Real.log_pow,Real.log_pow,Real.log_div hMr.ne' hpr.ne']
@@ -176,9 +176,9 @@ theorem query_dimension_expression_bound {m n j : ℕ} (hm : 0 < m) (hn : 1 < n)
   have hb := prefix_dimension_bound hM hn hj (query_slope_pos hm hs).le
     (mul_pos (mul_pos hz (pow_pos hratio _)) hc).le hlog
   calc
-    _ = ((n : ℝ)/z^1024)*(z^1024*((outputSize m : ℝ)/prime m)^j*
+    _ = ((n : ℝ)/z^2739)*(z^2739*((outputSize m : ℝ)/prime m)^j*
       (WeightedGlobalBank.nearWords Q (queryDeficit m j)).card) := by field_simp [gibbs_parameters.2.2.1.ne'] <;> ring
-    _ ≤ ((n : ℝ)/z^1024)*(Real.exp (querySlope m)*(n : ℝ)^(2*querySlope m/Real.log (outputSize m : ℝ))) :=
+    _ ≤ ((n : ℝ)/z^2739)*(Real.exp (querySlope m)*(n : ℝ)^(2*querySlope m/Real.log (outputSize m : ℝ))) :=
       mul_le_mul_of_nonneg_left hb (div_pos hnR hz).le
     _ = _ := by
       rw [← query_charge_eq hm,Real.rpow_add hnR,Real.rpow_one]

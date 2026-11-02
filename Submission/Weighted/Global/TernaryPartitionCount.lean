@@ -268,26 +268,26 @@ open WeightedGlobalLocalParameters
 
 theorem fixed_edge_mass_lower (m : ℕ) :
     (vertices (fixedLength m) (fixedPi m)).card*(2^(fixedPi m 1)*3^(fixedPi m 2)) ≤
-    partitionLoss (2380004124000*m) (292746547000*m)*
+    partitionLoss (2379766416784020*m) (292929977780940*m)*
       Fintype.card (LocalEdge (fixedLength m) (fixedAlpha m) (fixedPi m)) := by
-  have h := edge_mass_lower (24361752111000*m) (2380004124000*m) (292746547000*m)
-  have hL : 24361752111000*m+2*(2380004124000*m)+3*(292746547000*m) = fixedLength m := by
+  have h := edge_mass_lower (24361677233089140*m) (2379766416784020*m) (292929977780940*m)
+  have hL : 24361677233089140*m+2*(2379766416784020*m)+3*(292929977780940*m) = fixedLength m := by
     simp [fixedLength]; omega
-  have hα : alphaType (24361752111000*m) (2380004124000*m) (292746547000*m) = fixedAlpha m := by
+  have hα : alphaType (24361677233089140*m) (2379766416784020*m) (292929977780940*m) = fixedAlpha m := by
     funext d
     fin_cases d <;> simp [alphaType,fixedAlpha] <;> omega
-  have hπ : piType (24361752111000*m) (2380004124000*m) (292746547000*m) = fixedPi m := by
+  have hπ : piType (24361677233089140*m) (2379766416784020*m) (292929977780940*m) = fixedPi m := by
     funext d
     fin_cases d <;> simp [piType,fixedPi] <;> omega
-  have h1 : 2*(2380004124000*m) = fixedPi m 1 := by simp [fixedPi]; omega
-  have h2 : 3*(292746547000*m) = fixedPi m 2 := by simp [fixedPi]; omega
+  have h1 : 2*(2379766416784020*m) = fixedPi m 1 := by simp [fixedPi]; omega
+  have h2 : 3*(292929977780940*m) = fixedPi m 2 := by simp [fixedPi]; omega
   rw [hL,hα,hπ,h1,h2] at h
   exact h
 
 theorem fixed_prime_sq_le_poly_edges (m p : ℕ)
     (hP : p^2 ≤ 16*(vertices (fixedLength m) (fixedPi m)).card*
       (2^(fixedPi m 1)*3^(fixedPi m 2))) :
-    p^2 ≤ 16*partitionLoss (2380004124000*m) (292746547000*m)*
+    p^2 ≤ 16*partitionLoss (2379766416784020*m) (292929977780940*m)*
       Fintype.card (LocalEdge (fixedLength m) (fixedAlpha m) (fixedPi m)) := by
   exact hP.trans (by simpa [Nat.mul_assoc] using Nat.mul_le_mul_left 16 (fixed_edge_mass_lower m))
 

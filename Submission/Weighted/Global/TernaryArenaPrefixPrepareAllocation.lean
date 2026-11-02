@@ -77,19 +77,19 @@ theorem envelope_bound (maps : Fin F→Weight m p) (τ cap M b K H drift scale n
   have hN : LightWeightedGlobalPrefixSetup.N m (j+1)=fixedLength m*(j+1) := by
     unfold LightWeightedGlobalPrefixSetup.N fixedLength
     ring
-  have hT : LightWeightedGlobalPrefixSetup.T m (j+1)=3130753934820264*m*(j+1) := by
+  have hT : LightWeightedGlobalPrefixSetup.T m (j+1)=8371360984307726883*m*(j+1) := by
     unfold LightWeightedGlobalPrefixSetup.T
     ring
   have hfactor : 2^(fixedAlpha m 2*(j+1))=(2^fixedAlpha m 2)^(j+1) := by rw [pow_mul]
-  have hsub : (1024*(alphaRank m*(j+1))+3*(fixedAlpha m 2*(j+1)))-LightWeightedGlobalPrefixSetup.T m (j+1)-1≤(1024*(alphaRank m*(j+1))+3*(fixedAlpha m 2*(j+1))) :=
+  have hsub : (2738*(alphaRank m*(j+1))+6*(fixedAlpha m 2*(j+1)))-LightWeightedGlobalPrefixSetup.T m (j+1)-1≤(2738*(alphaRank m*(j+1))+6*(fixedAlpha m 2*(j+1))) :=
     (Nat.sub_le _ _).trans (Nat.sub_le _ _)
   have hc := prefix_cells maps τ cap M b K H drift scale n U (j+1)
   let parts : List ℕ := [j+1,m,p,p^(j+1),fixedAlpha m 2,alphaRank m,2*(4^fixedLength m),
-    LightWeightedGlobalDimensions.J M b n U,fixedLength m*(j+1),3130753934820264*m*(j+1),
+    LightWeightedGlobalDimensions.J M b n U,fixedLength m*(j+1),8371360984307726883*m*(j+1),
     2*(fixedLength m*(j+1)),F^(j+1),(4^fixedLength m)^(j+1),p^(j+1)*p,
     fixedAlpha m 2*(j+1),(2^fixedAlpha m 2)^(j+1),alphaRank m*(j+1),
     (fixedLength m*(j+1)+1)*(4^fixedLength m)^(j+1),
-    fixedLength m*(j+1)*(4^fixedLength m)^(j+1),(1024*(alphaRank m*(j+1))+3*(fixedAlpha m 2*(j+1))),
+    fixedLength m*(j+1)*(4^fixedLength m)^(j+1),(2738*(alphaRank m*(j+1))+6*(fixedAlpha m 2*(j+1))),
     (4^fixedLength m+1)^(j+1),(p^(2*K))^(j+1)*p^(2*K),9^(j+1)*n^2*9,
     LightTernaryInitialBudgets.word K b (p^(2*K)) drift scale n
       (LightWeightedGlobalDimensions.J M b n U) (n*2^(LightWeightedGlobalDimensions.J M b n U))*

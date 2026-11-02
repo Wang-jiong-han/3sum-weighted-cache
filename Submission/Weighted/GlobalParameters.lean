@@ -5,30 +5,30 @@ namespace ThreeSum.WeightedGlobalParameters
 set_option maxRecDepth 100000
 set_option maxHeartbeats 0
 
-def pi0 : ℝ := (8120584037 / 10000000000 : ℝ)
-def pi1 : ℝ := (198333677 / 1250000000 : ℝ)
-def pi2 : ℝ := (292746547 / 10000000000 : ℝ)
-def alpha0 : ℝ := (13517251391 / 15000000000 : ℝ)
-def alpha1 : ℝ := (2672750671 / 30000000000 : ℝ)
-def alpha2 : ℝ := (292746547 / 30000000000 : ℝ)
-def deficit : ℝ := (134483020951 / 10000000000000 : ℝ)
-def cutSlope : ℝ := (130448080617511 / 1250000000000 : ℝ)
-def dropSlope : ℝ := (134483020951 / 19531250000 : ℝ)
+def pi0 : ℝ := (406027953884819/500000000000000 : ℝ)
+def pi1 : ℝ := (39662773613067/250000000000000 : ℝ)
+def pi2 : ℝ := (14646498889047/500000000000000 : ℝ)
+def alpha0 : ℝ := (90114578758847/100000000000000 : ℝ)
+def alpha1 : ℝ := (5568117488677/62500000000000 : ℝ)
+def alpha2 : ℝ := (4882166296349/500000000000000 : ℝ)
+def deficit : ℝ := (134483535964511/10000000000000000 : ℝ)
+def cutSlope : ℝ := (2790453661435908961/10000000000000000 : ℝ)
+def dropSlope : ℝ := (184107960735415559/10000000000000000 : ℝ)
 
 def y : ℝ := WeightedCacheParameters.yRoot
 def z : ℝ := WeightedCacheParameters.zRoot
 def three : ℝ := 3
 def mean : ℝ := pi1+2*pi2
-def bankArg : ℝ := 1+y^512+y^1025
-def queryArg1 : ℝ := 1+z^512
-def queryArg2 : ℝ := 1+z^513+z^1025
+def bankArg : ℝ := 1+y^1369+y^2740
+def queryArg1 : ℝ := 1+z^1369
+def queryArg2 : ℝ := 1+z^1371+z^2740
 def Hpi : ℝ := WeightedCacheParameters.Hn/Real.log 2
 def Halpha : ℝ := WeightedCacheParameters.An/Real.log 2
 def partitionEntropy : ℝ := WeightedCacheParameters.Gn/Real.log 2
 def bankEntropy : ℝ := WeightedCacheParameters.Bn/Real.log 2
 def queryEntropy : ℝ := WeightedCacheParameters.Qn/Real.log 2
-def certificateExponent : ℝ := 480069853/250000000
-def targetExponent : ℝ := 96013971/50000000
+def certificateExponent : ℝ := 2400349260231/1250000000000
+def targetExponent : ℝ := 384055881637/200000000000
 theorem log_two_pos : 0<Real.log 2 := Real.log_pos (by norm_num)
 
 theorem log_two_bounds :
@@ -42,7 +42,7 @@ theorem log_two_bounds :
   constructor <;> linarith [hh.1,hh.2]
 
 
-theorem Hpi_bounds : (81443/100000 : ℝ)≤Hpi ∧ Hpi≤(81444/100000 : ℝ) := by
+theorem Hpi_bounds : (81448/100000 : ℝ)≤Hpi ∧ Hpi≤(81449/100000 : ℝ) := by
   have hx := WeightedCacheParameters.Hn_bounds
   have hl := log_two_bounds
   constructor
@@ -52,7 +52,7 @@ theorem Hpi_bounds : (81443/100000 : ℝ)≤Hpi ∧ Hpi≤(81444/100000 : ℝ) :
     linarith [hx.2,hl.1]
 
 
-theorem Halpha_bounds : (51129/100000 : ℝ)≤Halpha ∧ Halpha≤(51130/100000 : ℝ) := by
+theorem Halpha_bounds : (51133/100000 : ℝ)≤Halpha ∧ Halpha≤(51134/100000 : ℝ) := by
   have hx := WeightedCacheParameters.An_bounds
   have hl := log_two_bounds
   constructor
@@ -62,7 +62,7 @@ theorem Halpha_bounds : (51129/100000 : ℝ)≤Halpha ∧ Halpha≤(51130/100000
     linarith [hx.2,hl.1]
 
 
-theorem partitionEntropy_bounds : (20506/100000 : ℝ)≤partitionEntropy ∧ partitionEntropy≤(20507/100000 : ℝ) := by
+theorem partitionEntropy_bounds : (20507/100000 : ℝ)≤partitionEntropy ∧ partitionEntropy≤(20508/100000 : ℝ) := by
   have hx := WeightedCacheParameters.Gn_bounds
   have hl := log_two_bounds
   constructor
@@ -72,7 +72,7 @@ theorem partitionEntropy_bounds : (20506/100000 : ℝ)≤partitionEntropy ∧ pa
     linarith [hx.2,hl.1]
 
 
-theorem bankEntropy_bounds : (78197/100000 : ℝ)≤bankEntropy ∧ bankEntropy≤(78198/100000 : ℝ) := by
+theorem bankEntropy_bounds : (78202/100000 : ℝ)≤bankEntropy ∧ bankEntropy≤(78203/100000 : ℝ) := by
   have hx := WeightedCacheParameters.Bn_bounds
   have hl := log_two_bounds
   constructor
@@ -82,7 +82,7 @@ theorem bankEntropy_bounds : (78197/100000 : ℝ)≤bankEntropy ∧ bankEntropy�
     linarith [hx.2,hl.1]
 
 
-theorem queryEntropy_bounds : (7006/100000 : ℝ)≤queryEntropy ∧ queryEntropy≤(7007/100000 : ℝ) := by
+theorem queryEntropy_bounds : (7007/100000 : ℝ)≤queryEntropy ∧ queryEntropy≤(7008/100000 : ℝ) := by
   have hx := WeightedCacheParameters.Qn_bounds
   have hl := log_two_bounds
   constructor
@@ -107,12 +107,12 @@ theorem alpha_formulas :
 
 theorem deficit_positive : 0<deficit := by norm_num [deficit]
 theorem endpoint_below_cut : mean/2<mean-deficit := by norm_num [mean,pi1,pi2,deficit]
-theorem weighted_endpoint_below_cut : 1025*(alpha1+2*alpha2)<2*cutSlope := by
+theorem weighted_endpoint_below_cut : 2740*(alpha1+2*alpha2)<2*cutSlope := by
   norm_num [alpha1,alpha2,cutSlope]
-theorem cut_drop_schedule : cutSlope+dropSlope=512*pi1+1025*pi2 := by
+theorem cut_drop_schedule : cutSlope+dropSlope=1369*pi1+2740*pi2 := by
   norm_num [cutSlope,dropSlope,pi1,pi2]
-theorem generating_polynomials : bankArg=1+y^512+y^1025 ∧
-    queryArg1=1+z^512 ∧ queryArg2=1+z^513+z^1025 := ⟨rfl,rfl,rfl⟩
+theorem generating_polynomials : bankArg=1+y^1369+y^2740 ∧
+    queryArg1=1+z^1369 ∧ queryArg2=1+z^1371+z^2740 := ⟨rfl,rfl,rfl⟩
 theorem gibbs_parameters : 0<y ∧ y<1 ∧ 0<z ∧ z<1 := by
   norm_num [y,z,WeightedCacheParameters.yRoot,WeightedCacheParameters.zRoot]
 theorem Hpi_pos : 0<Hpi := div_pos WeightedCacheParameters.Hn_pos log_two_pos
@@ -138,14 +138,14 @@ theorem projection_fiber_entropy_lt_half_Hpi :
 
 /-- Exact finite bound on the mixed projection fiber in the integer schedule. -/
 theorem projection_fiber_log_choose_bound {m : ℕ} (hm : 0 < m) :
-    Real.log (((30000000000000 * m).choose (292746547000 * m) : ℕ) : ℝ) <
-      (30000000000000 * m : ℕ) * Real.log 2 / 4 := by
+    Real.log (((30000000000000000 * m).choose (292929977780940 * m) : ℕ) : ℝ) <
+      (30000000000000000 * m : ℕ) * Real.log 2 / 4 := by
   have hm0 : (m : ℝ) ≠ 0 := by exact_mod_cast (Nat.ne_of_gt hm)
-  have hL : (0 : ℝ) < (30000000000000 * m : ℕ) := by
-    exact_mod_cast (Nat.mul_pos (by decide : 0 < 30000000000000) hm)
-  have hk : 292746547000 * m ≤ 30000000000000 * m :=
-    Nat.mul_le_mul_right m (by decide : 292746547000 ≤ 30000000000000)
-  have hr : ((292746547000 * m : ℕ) : ℝ) / (30000000000000 * m : ℕ) = alpha2 := by
+  have hL : (0 : ℝ) < (30000000000000000 * m : ℕ) := by
+    exact_mod_cast (Nat.mul_pos (by decide : 0 < 30000000000000000) hm)
+  have hk : 292929977780940 * m ≤ 30000000000000000 * m :=
+    Nat.mul_le_mul_right m (by decide : 292929977780940 ≤ 30000000000000000)
+  have hr : ((292929977780940 * m : ℕ) : ℝ) / (30000000000000000 * m : ℕ) = alpha2 := by
     push_cast
     unfold alpha2
     field_simp
@@ -154,26 +154,26 @@ theorem projection_fiber_log_choose_bound {m : ℕ} (hm : 0 < m) :
   rw [hr] at hb
   have he := (div_lt_iff₀ log_two_pos).mp projection_fiber_entropy_bound
   calc
-    Real.log (((30000000000000 * m).choose (292746547000 * m) : ℕ) : ℝ)
-      ≤ (30000000000000 * m : ℕ) * Real.binEntropy alpha2 := hb
-    _ < (30000000000000 * m : ℕ) * ((1 / 4 : ℝ) * Real.log 2) :=
+    Real.log (((30000000000000000 * m).choose (292929977780940 * m) : ℕ) : ℝ)
+      ≤ (30000000000000000 * m : ℕ) * Real.binEntropy alpha2 := hb
+    _ < (30000000000000000 * m : ℕ) * ((1 / 4 : ℝ) * Real.log 2) :=
       mul_lt_mul_of_pos_left he hL
-    _ = (30000000000000 * m : ℕ) * Real.log 2 / 4 := by ring
+    _ = (30000000000000000 * m : ℕ) * Real.log 2 / 4 := by ring
 
 theorem projection_fiber_bits_lt_quarter {m : ℕ} (hm : 0 < m) :
-    Real.log (((30000000000000 * m).choose (292746547000 * m) : ℕ) : ℝ) /
-      ((30000000000000 * m : ℕ) * Real.log 2) < (1 / 4 : ℝ) := by
-  have hL : (0 : ℝ) < (30000000000000 * m : ℕ) := by
-    exact_mod_cast (Nat.mul_pos (by decide : 0 < 30000000000000) hm)
+    Real.log (((30000000000000000 * m).choose (292929977780940 * m) : ℕ) : ℝ) /
+      ((30000000000000000 * m : ℕ) * Real.log 2) < (1 / 4 : ℝ) := by
+  have hL : (0 : ℝ) < (30000000000000000 * m : ℕ) := by
+    exact_mod_cast (Nat.mul_pos (by decide : 0 < 30000000000000000) hm)
   apply (div_lt_iff₀ (mul_pos hL log_two_pos)).mpr
   calc
-    Real.log (((30000000000000 * m).choose (292746547000 * m) : ℕ) : ℝ)
-      < (30000000000000 * m : ℕ) * Real.log 2 / 4 := projection_fiber_log_choose_bound hm
-    _ = (1 / 4 : ℝ) * ((30000000000000 * m : ℕ) * Real.log 2) := by ring
+    Real.log (((30000000000000000 * m).choose (292929977780940 * m) : ℕ) : ℝ)
+      < (30000000000000000 * m : ℕ) * Real.log 2 / 4 := projection_fiber_log_choose_bound hm
+    _ = (1 / 4 : ℝ) * ((30000000000000000 * m : ℕ) * Real.log 2) := by ring
 
 theorem projection_fiber_bits_lt_half_Hpi {m : ℕ} (hm : 0 < m) :
-    Real.log (((30000000000000 * m).choose (292746547000 * m) : ℕ) : ℝ) /
-      ((30000000000000 * m : ℕ) * Real.log 2) < Hpi / 2 := by
+    Real.log (((30000000000000000 * m).choose (292929977780940 * m) : ℕ) : ℝ) /
+      ((30000000000000000 * m : ℕ) * Real.log 2) < Hpi / 2 := by
   linarith [projection_fiber_bits_lt_quarter hm, Hpi_bounds.1]
 
 theorem analytic_admissibility :
@@ -249,7 +249,7 @@ theorem all_costs_lt_certificate : ∀ t ∈ costLedger, t < certificateExponent
   · exact h5
   · norm_num [certificateExponent]
 
-theorem certificate_margin : targetExponent - certificateExponent = (1/125000000 : ℝ) := by
+theorem certificate_margin : targetExponent - certificateExponent = (1/5000000000000 : ℝ) := by
   norm_num [targetExponent, certificateExponent]
 theorem certificate_lt_target : certificateExponent < targetExponent := by
   norm_num [targetExponent, certificateExponent]

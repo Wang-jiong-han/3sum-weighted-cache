@@ -35,8 +35,8 @@ theorem meets {pMain pPowers pEnum : ℕ}
     (hw : (lim.space : ℤ) ≤ lim.word)
     (hspace : work+(2*N+1) ≤ lim.space)
     (hword : ((4^(N+1) : ℕ) : ℤ) ≤ lim.word)
-    (hcontrol : ((1025*N+1100 : ℕ) : ℤ)≤lim.word)
-    (hcut : T ≤ 1025*N) (hdst : dst+(codes N T).length ≤ work)
+    (hcontrol : ((2740*N+3000 : ℕ) : ℤ)≤lim.word)
+    (hcut : T ≤ 2740*N) (hdst : dst+(codes N T).length ≤ work)
     (hd : d+N+2 ≤ lim.depth) :
     Meets lim P pMain d [N,T,dst,work] μ (time N T)
       (fun r μ' => r = ((codes N T).length : ℤ) ∧
@@ -81,8 +81,8 @@ theorem program_meets {μ : ℕ → ℤ} {N T dst work d : ℕ}
     (hw : (lim.space : ℤ) ≤ lim.word)
     (hspace : work+(2*N+1) ≤ lim.space)
     (hword : ((4^(N+1) : ℕ) : ℤ) ≤ lim.word)
-    (hcontrol : ((1025*N+1100 : ℕ) : ℤ)≤lim.word)
-    (hcut : T ≤ 1025*N) (hdst : dst+(codes N T).length ≤ work)
+    (hcontrol : ((2740*N+3000 : ℕ) : ℤ)≤lim.word)
+    (hcut : T ≤ 2740*N) (hdst : dst+(codes N T).length ≤ work)
     (hd : d+N+2 ≤ lim.depth) :
     Meets lim program 0 d [N,T,dst,work] μ (time N T)
       (fun r μ' => r = ((codes N T).length : ℤ) ∧

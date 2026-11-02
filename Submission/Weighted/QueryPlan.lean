@@ -29,7 +29,7 @@ structure Resources (lim : Limits) {N : ℕ} (rows : ℕ) (c : Config)
   hfr : c.fr≤lim.space
   hcount : c.vals+rows≤c.pcount
   hspace : c.pcount≤lim.space
-  hword : ((c.nb+rows+2^(2*N+1)+1025*N+1100 : ℕ) : ℤ)≤lim.word
+  hword : ((c.nb+rows+2^(2*N+1)+2740*N+3000 : ℕ) : ℤ)≤lim.word
   hcontrols : ((c.T+N+32 : ℕ) : ℤ)≤lim.word
   hmemoWord : ((N+rows+2*N+c.h+20 : ℕ) : ℤ)≤lim.word
   hL : c.L≤2*N
@@ -37,7 +37,7 @@ structure Resources (lim : Limits) {N : ℕ} (rows : ℕ) (c : Config)
   hnn : rows<2^c.L
   hnbpos : 0<c.nb
   hT : c.h≤2*N
-  hh : 1025*c.h≤2*c.T
+  hh : 2740*c.h≤2*c.T
   hvalue : ∀ R, |binomialZeta source R|≤c.U
   hV : 2*(N+1)*c.U≤c.V
 
@@ -69,9 +69,9 @@ theorem ready {lim : Limits} {N rows : ℕ} {c : Config} {μ : ℕ→ℤ}
 
 theorem Resources.costWord {lim : Limits} {N rows : ℕ} {c : Config}
     {source : TritWord N→ℤ} (R : Resources lim rows c source) :
-    ((1025*N+1100 : ℕ) : ℤ)≤lim.word := by
-  exact (Int.ofNat_le.mpr (show 1025*N+1100≤c.nb+rows+2^(2*N+1)+1025*N+1100 by
+    ((2740*N+3000 : ℕ) : ℤ)≤lim.word := by
+  exact (Int.ofNat_le.mpr (show 2740*N+3000≤c.nb+rows+2^(2*N+1)+2740*N+3000 by
     simpa only [Nat.add_assoc] using
-      Nat.le_add_left (1025*N+1100) (c.nb+rows+2^(2*N+1)))).trans R.hword
+      Nat.le_add_left (2740*N+3000) (c.nb+rows+2^(2*N+1)))).trans R.hword
 
 end ThreeSum.LightWeightedQueryPlan

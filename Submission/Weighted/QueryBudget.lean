@@ -2,7 +2,7 @@ import Submission.Weighted.PreparedWanted
 import Submission.Weighted.Schedule
 import Submission.Weighted.Parameters
 
-/-! Connect exact integer schedules to physical query time. The 1024 crossing
+/-! Connect exact integer schedules to physical query time. The 2739 crossing
 units are charged as a fixed factor. This is not a full 3SUM runtime theorem.
 -/
 noncomputable section
@@ -26,7 +26,7 @@ theorem cut_scale (m : ℕ) : (bankCut m : ℝ)=(fixedLength m : ℝ)*cutSlope :
 theorem drop_scale (m : ℕ) : (dropBudget m : ℝ)=(fixedLength m : ℝ)*dropSlope := by
   simp [dropBudget,fixedLength,dropSlope]; ring
 
-def envelope (m : ℕ) : ℝ := exp ((fixedLength m : ℝ)*Qn)/zRoot^1024
+def envelope (m : ℕ) : ℝ := exp ((fixedLength m : ℝ)*Qn)/zRoot^2739
 theorem envelope_pos (m : ℕ) : 0<envelope m := div_pos (exp_pos _) (pow_pos z_pos _)
 
 theorem gibbs_expression {m : ℕ} (Q : TritWord (fixedLength m))
@@ -35,7 +35,7 @@ theorem gibbs_expression {m : ℕ} (Q : TritWord (fixedLength m))
   have hz := z_pos
   have ha : 0<queryArg1 := by unfold queryArg1; positivity
   have hb : 0<queryArg2 := by unfold queryArg2; positivity
-  have he : (fixedLength m : ℝ)*Qn-1024*log zRoot=
+  have he : (fixedLength m : ℝ)*Qn-2739*log zRoot=
       (fixedPi m 1 : ℝ)*log queryArg1+(fixedPi m 2 : ℝ)*log queryArg2-
         (treeBudget m : ℝ)*log zRoot := by
     rw [pi1_scale,pi2_scale]
@@ -44,14 +44,14 @@ theorem gibbs_expression {m : ℕ} (Q : TritWord (fixedLength m))
     ring
   have hp : 0<queryArg1^digitCount Q 1*queryArg2^digitCount Q 2/zRoot^treeBudget m := by positivity
   have hl : log (queryArg1^digitCount Q 1*queryArg2^digitCount Q 2/zRoot^treeBudget m)=
-      (fixedLength m : ℝ)*Qn-1024*log zRoot := by
+      (fixedLength m : ℝ)*Qn-2739*log zRoot := by
     rw [log_div (mul_pos (pow_pos ha _) (pow_pos hb _)).ne' (pow_pos z_pos _).ne',
       log_mul (pow_pos ha _).ne' (pow_pos hb _).ne',log_pow,log_pow,log_pow,hQ 1,hQ 2]
     exact he.symm
   calc
     _=exp (log (queryArg1^digitCount Q 1*queryArg2^digitCount Q 2/zRoot^treeBudget m)) := (exp_log hp).symm
     _=envelope m := by
-      have hlz : log (zRoot^1024)=1024*log zRoot := by rw [log_pow]; norm_num
+      have hlz : log (zRoot^2739)=2739*log zRoot := by rw [log_pow]; norm_num
       rw [hl,exp_sub,←hlz,exp_log (pow_pos z_pos _)]
       rfl
 
@@ -112,7 +112,7 @@ theorem actual_query_time_bound {m L : ℕ} (Q : TritWord (fixedLength m))
     (LightWeightedFrozenQuery.queryTime L (bankCut m) (fixedLength m) Q : ℝ)≤
       10000*((fixedLength m : ℝ)+L+1)*((fixedLength m : ℝ)+1)*envelope m := by
   have hg := LightWeightedFrozenQuery.queryTime_gibbs L (bankCut m) Q zRoot z_pos.le z_lt_one.le
-  change _*zRoot^(cacheCost Q+1024-bankCut m)≤_ at hg
+  change _*zRoot^(cacheCost Q+2739-bankCut m)≤_ at hg
   rw [query_boundary hQ] at hg
   have hh := (le_div_iff₀ (pow_pos z_pos (treeBudget m))).mpr hg
   calc

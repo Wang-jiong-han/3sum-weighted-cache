@@ -79,14 +79,14 @@ theorem word_powerBound {m : ℕ} (hm : 0<m) (F : ℕ) :
   obtain ⟨h0,hg,hmk⟩:= exponent_bounds m F
   have hconst (c : ℕ) : PowerBound (fun _=>c) (exponent m F) :=
     (PowerBound.const c).mono_exponent h0
-  have hN:= ((PowerBound.const 1025).mul (dimensions_powerBound hm)).mono_exponent (by simpa using h0)
+  have hN:= ((PowerBound.const 2740).mul (dimensions_powerBound hm)).mono_exponent (by simpa using h0)
   have hr:= (radix_length_powerBound hm).mono_exponent h0
   have hgroups:= ((PowerBound.const (F+1)).mul (fixed_radix_powerBound hm F)).mono_exponent
     (by simpa using hg)
   have hmask:= ((PowerBound.const 4).mul (full_mask_powerBound hm)).mono_exponent
     (by simpa using hmk)
-  have hh:= (((((((hconst 3130753934820264).add_same hN).add_same hr).add_same (hconst m)).add_same
-    (hconst F)).add_same hgroups).add_same hmask).add_same (hconst 1100)
+  have hh:= (((((((hconst 8371360984307726883).add_same hN).add_same hr).add_same (hconst m)).add_same
+    (hconst F)).add_same hgroups).add_same hmask).add_same (hconst 3000)
   convert hh using 1
   funext n
   dsimp [need,LightWeightedGlobalPrefixSetup.word,N,WeightedGlobalLocalParameters.fixedLength]

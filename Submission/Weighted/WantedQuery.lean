@@ -66,9 +66,9 @@ theorem meets {e : Entries} {pMain N rows out bankValues d : ℕ}
   have hws : f.ws≤lim.space := by have := Rf.hmetadataRanks; have := Rf.hrankVals; have := Rf.hvals; have := Rf.hfr; omega
   have hpSpace : f.powers+(2*N+1)≤lim.space := Rf.hp.trans hws
   have hwordPow : ((2^(2*N+1) : ℕ) : ℤ)≤lim.word := by have := Rf.hword; omega
-  have hscalar : ((1025*N+1100 : ℕ) : ℤ)≤lim.word :=
-    (Int.ofNat_le.mpr (show 1025*N+1100≤f.nb+rows+2^(2*N+1)+1025*N+1100 by
-      simpa only [Nat.add_assoc] using Nat.le_add_left (1025*N+1100) (f.nb+rows+2^(2*N+1)))).trans Rf.hword
+  have hscalar : ((2740*N+3000 : ℕ) : ℤ)≤lim.word :=
+    (Int.ofNat_le.mpr (show 2740*N+3000≤f.nb+rows+2^(2*N+1)+2740*N+3000 by
+      simpa only [Nat.add_assoc] using Nat.le_add_left (2740*N+3000) (f.nb+rows+2^(2*N+1)))).trans Rf.hword
   have hNword : 2*(N : ℤ)+3≤lim.word := by have := Rf.hmemoWord; omega
   have hcutWord : (f.T : ℤ)+1≤lim.word := by have := Rf.hcontrols; omega
   have hqueryBaseWord : ((f.nb+rows+2^(2*N+1)+16 : ℕ) : ℤ)≤lim.word := by have := Rf.hword; omega

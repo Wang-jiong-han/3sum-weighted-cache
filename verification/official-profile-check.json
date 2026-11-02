@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "verifier_commit": "92b191ab559f849281bcb872df8414a0e7fbdef4",
+  "profile": {
+    "challenge_file": "challenges/3sum-apsp/EndStatement.lean",
+    "challenge_sha256": "4291e3f05781cea42f9d672ff73ceac1f6d1a0c3021038e94372fa8f7e1ad987",
+    "lean_toolchain": "leanprover/lean4:v4.33.1",
+    "manifest_file": "profiles/anthropic-lake-manifest.json",
+    "tools_file": "profiles/anthropic-tools.json",
+    "solution_module": "Submission",
+    "source_roots": [
+      "Submission"
+    ],
+    "theorem_names": [
+      "Race.bound"
+    ],
+    "bound_kind": "exponent",
+    "maximum": "2",
+    "upstream_commit": "e1a4e6508154ea59f030480661590a9fe3018011"
+  },
+  "dependency_revisions_match": true,
+  "trusted_statement_bytes_match": true,
+  "issue_template_sha256": "6a4288a2bb4eeea2df3a1f899e15223684f8ebb4afd7373687dd03f4f5c35be2",
+  "official_profile_url": "https://github.com/bigospeedrun/verifier/blob/92b191ab559f849281bcb872df8414a0e7fbdef4/profiles/direct.json"
+}

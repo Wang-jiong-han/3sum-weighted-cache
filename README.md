@@ -1,50 +1,97 @@
-# Weighted downset caching for deterministic 3SUM
+# A faster deterministic 3SUM solver and its weighted-cache optimization limit
 
-Jionghan Wang, University of Science and Technology of China
-wangjh1@ustc.edu.cn
+Jionghan Wang (王炯涵), University of Science and Technology of China  
+Contact: wangjh1@ustc.edu.cn
 
-Exact bound: O(n^(96013971/50000000)) = O(n^1.92027942).
-Public entry: Submission.lean, theorem Race.bound.
-Problem: deterministic word-RAM decision 3SUM, three distinct original positions;
-for each fixed kappa, input magnitudes are at most n^kappa.
+This project presents a refined deterministic decision algorithm for integer
+3SUM, together with a formal enclosure of the best exponent achievable by its
+six-term weighted-cache analysis. The public theorem statements are in
+`Submission.lean`; their proofs are checked by Lean 4.
 
-## Method and attribution
+## Results
 
-The contribution is a weighted downset cache with costs (0,512,1025),
-retaining ordinary homogeneous degree (0,1,2). The proof includes actual
-enumeration, binomial transforms, Euler reconstruction, complete inverse
-queries with boundary overshoot, exact logarithm certificates, and the
-whole executable solver's correctness, resources, and time.
+| Result | Exact value | Public theorem |
+|---|---|---|
+| Complete solver time exponent | `384055881637/200000000000` = 1.920279408185 | `Race.bound` |
+| Cache-model optimum, lower bound | `96013970409/50000000000` = 1.92027940818 | `Race.cache_optimum_interval` |
+| Cache-model optimum, strict upper bound | `2400349260231/1250000000000` = 1.9202794081848 | `Race.cache_optimum_interval` |
+| Width of the optimum enclosure | `3/625000000000` = 0.0000000000048 | `CacheOptimality.optimum_interval_width` |
+| Explicit parameters' objective minus the optimum | nonnegative and strictly below `3/625000000000` | `CacheOptimality.explicit_parameters_near_optimal` |
+| Remaining possible exponent saving within the model | at most `1/200000000000` = 0.000000000005 | `Race.remaining_exponent_gain` |
 
-This builds on proof-factory/3sum-bound at
-8af82141280754b0c46d3dacb926426265da6f99, the ternary construction of
-c0ldzy17 and contributors, Joshua Wharton's numerical certificates, and
-Hrishik Sai Bojnal's parameter refinements. The underlying word-RAM
-specification and compiler come from Anthropic's formalization associated
-with Josh Alman and Virginia Vassilevska Williams. Original source credits,
-LICENSE and NOTICE are retained.
+The complete solver exponent improves the earlier certified exponent 1.92027942.
+`CacheOptimality.strict_improvement` proves the strict rational comparison.
+“Faster” here refers to the certified worst-case exponent.
 
-The development tree preserves the previous Submission.lean unchanged;
-this submission repository supplies a separate Race.bound wrapper for the
-new bound. The old wrapper is archived as
-provenance/UpstreamSubmission.lean.txt. The inherited problem statement
-matches the official verifier statement byte for byte.
+The solver accepts exactly when three **different input positions** sum to zero.
+For every fixed natural number κ, it handles integers of absolute value at most
+`n^κ`, on the word-RAM defined in `Submission/EndStatement.lean`, with
+`O(log n)`-bit words. `SolvedInTime` quantifies over a single finite RAM program
+for each κ and proves both its verdict and its running-time bound. This is a
+decision problem; the theorem does not enumerate all zero-sum triples.
 
-## Local verification
+The optimization result quantifies over every ternary probability profile
+with positive entropy,
+every real monotone additive digit-cost vector with first cost zero, every
+legal common cache threshold, and all nonnegative Gibbs multipliers. It bounds
+the infimum of the six-term objective defined in
+`Submission/Optimality/Score.lean`. This is the parameter-optimization limit of
+that model. A different cache architecture, different reconstruction method, or
+stronger cost analysis is outside this theorem's quantified class.
+Positive entropy is an explicit domain condition because the normalized
+objective divides by `H(π)`. The region-coverage theorem also includes the
+zero-entropy boundary profiles.
 
-Lean 4.33.1 and Mathlib 0df444a360eaa60ab8c11dca51a86af692955474.
-With elan and network access for the fixed dependencies:
+## Parameters
 
-    lake update
-    lake exe cache get
-    lake build Submission
-    lake env lean Audit.lean
+The digit costs are `(0,1369,2740)`. The ternary profile is
 
-The development's complete solver and all added modules were built
-locally. Its combined log contains 57 axiom reports with only propext,
-Classical.choice and Quot.sound. The original workspace receipt is retained
-in provenance/. These are local results; the Big O Speedrun Comparator
-and hosted verifier receipt will be supplied by the official submission.
+```
+π₀ = 406027953884819 / 500000000000000
+π₁ = 39662773613067  / 250000000000000
+π₂ = 14646498889047  / 500000000000000
+```
 
-The manuscript is in paper/. OpenAI Codex assisted with exploration,
-formalization and writing; source credits remain with their authors.
+The normalized deficit is `134483535964511/10000000000000000`.
+The two generating-function evaluation points are
+`199750991630287/200000000000000` and `49905618228487/50000000000000`.
+All constants used in the formal proof are exact rationals.
+
+## Reproduce the checks
+
+Install [elan](https://github.com/leanprover/elan), then run from this directory:
+
+```sh
+lake exe cache get
+lake build Submission
+lake env lean Audit.lean
+python scripts/check_release.py
+```
+
+`lean-toolchain` pins Lean 4.33.1. `lake-manifest.json` pins Mathlib commit
+`0df444a360eaa60ab8c11dca51a86af692955474` and all transitive packages.
+Keep the manifest when reproducing the build. A fresh build checks many
+numeric certificates and can take substantial time. On memory-constrained
+machines, use `python scripts/build_serial.py` after fetching the dependency
+cache; it checks project modules in dependency order with one Lean process.
+
+`Audit.lean` prints the axioms of all four public results. The accepted axiom
+set is exactly `propext`, `Classical.choice`, and `Quot.sound`. Numeric
+certificates use `decide +kernel`; all interval formulas have proved real
+semantics. Certificate generation and Python prechecks are outside the trusted
+base: every proposed region, subdivision, and numeric inequality is checked
+again inside Lean.
+
+See `PROOF.md` for the mathematical argument, `THEOREMS.md` for the proof map,
+`README.zh-CN.md` for the Chinese overview, and `PROVENANCE.md` for attribution.
+`SUBMISSION.md` gives the official entry and the exact four-field issue format;
+`scripts/make_issue_body.py` generates that body after an immutable source commit
+has been published. Compatibility and record-gate snapshots are included in
+`verification/`; they record the checked upstream commits.
+
+## License and attribution
+
+This project extends an existing verified 3SUM development. The original RAM
+semantics, reductions, and proof infrastructure retain their authorship and
+copyright notices. See `LICENSE`, `NOTICE`, and `PROVENANCE.md`. The refinement
+and optimization certificate are presented as additions to that development.

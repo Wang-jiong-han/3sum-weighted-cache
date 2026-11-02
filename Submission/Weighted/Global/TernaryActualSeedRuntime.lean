@@ -32,7 +32,7 @@ theorem wanted_factor_bound {K k b m F : ℕ} (hK : 0<K)
     (outputCap K k m F:ℝ)≤(nativeFactor K k b m:ℝ)*((nativePrime K m:ℝ)/(partitionCap m:ℝ)):=by
   let P:=nativePrime K m
   let τ:=threshold K k m
-  let loss:=WeightedGlobalPartitionCount.partitionLoss (2380004124000*m) (292746547000*m)
+  let loss:=WeightedGlobalPartitionCount.partitionLoss (2379766416784020*m) (292929977780940*m)
   have hcap:=WeightedGlobalGoodOutputCatalog.cap_real_le_native (m:=m) (p:=P) τ
     (WeightedGlobalCoverCapParameters.rawThreshold_pos _ _ _) (nativePrime_base_lower hK m)
   have hbase : 2*loss*F*τ≤nativeFactor K k b m:=by
@@ -177,7 +177,7 @@ theorem volumeConstant_nonneg (K k c d m : ℕ) : 0≤volumeConstant K k c d m:=
   unfold volumeConstant
   refine mul_nonneg (Nat.cast_nonneg _) ?_
   exact add_nonneg (add_nonneg (add_nonneg (Real.exp_pos _).le (Real.exp_pos _).le) (Real.exp_pos _).le)
-    (div_nonneg (Real.exp_pos _).le (pow_pos WeightedGlobalParameters.gibbs_parameters.2.2.1 1024).le)
+    (div_nonneg (Real.exp_pos _).le (pow_pos WeightedGlobalParameters.gibbs_parameters.2.2.1 2739).le)
 
 theorem scoreConstant_nonneg (K k c d m F D E κ : ℕ) : 0≤scoreConstant K k c d m F D E κ:=
   mul_nonneg (Nat.cast_nonneg _) (volumeConstant_nonneg _ _ _ _ _)

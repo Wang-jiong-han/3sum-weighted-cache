@@ -69,8 +69,8 @@ theorem heapEnd_translate (a b N R A : ℕ) :
   simp only [heapEnd_eq]; omega
 
 theorem controls (N nb groups count R A : ℕ) :
-    nb+R+2^(2*N+1)+1025*N+1100≤ word N nb groups count R A ∧
-    1026*N+R+1200≤ word N nb groups count R A ∧
+    nb+R+2^(2*N+1)+2740*N+3000≤ word N nb groups count R A ∧
+    2741*N+R+3200≤ word N nb groups count R A ∧
     4*eulerBound N A+8*N+16≤ word N nb groups count R A ∧
     4^(N+1)≤ word N nb groups count R A ∧
     4*sourceZeta N A+3≤ word N nb groups count R A ∧
@@ -109,7 +109,7 @@ theorem zeta_abs {N A : ℕ} (F : TritWord N→ ℤ)
 literal layout. The division reserve uses `V+3`, a conservative polynomial
 upper bound on the actual logarithmic table length. -/
 theorem resources {lim : Limits} {a N R A bank nb bv T h ws rows groups count : ℕ}
-    (hrows : rows≤ R) (hCut : T≤1025*N) (hT : h≤2*N) (hh : 1025*h≤2*T)
+    (hrows : rows≤ R) (hCut : T≤2740*N) (hT : h≤2*N) (hh : 2740*h≤2*T)
     (hnb : nb< 2^(2*N)) (hnn : rows< 2^(2*N)) (hpos : 0< nb)
     (hbank : bank+nb≤ a) (hbv : bv+nb≤ a)
     (hstart : powers a N R+(2*N+1)≤ ws)
@@ -122,9 +122,9 @@ theorem resources {lim : Limits} {a N R A bank nb bv T h ws rows groups count : 
   obtain ⟨hc,hc',hd,_,_,_,_,_,_⟩:= controls N nb groups count R A
   have hmul : 2*N*rows≤ 2*N*R:= Nat.mul_le_mul_left _ hrows
   have hlog : Nat.log 2 (eulerBound N A+1)≤ eulerBound N A+1:= Nat.log_le_self _ _
-  have hcZ : ((nb+rows+2^(2*N+1)+1025*N+1100:ℕ):ℤ)≤ lim.word:=
+  have hcZ : ((nb+rows+2^(2*N+1)+2740*N+3000:ℕ):ℤ)≤ lim.word:=
     (Int.ofNat_le.mpr (by omega)).trans hword
-  have hcZ' : ((1026*N+rows+1200:ℕ):ℤ)≤ lim.word:=
+  have hcZ' : ((2741*N+rows+3200:ℕ):ℤ)≤ lim.word:=
     (Int.ofNat_le.mpr (by omega)).trans hword
   have hdZ : ((4*eulerBound N A+8*N+16:ℕ):ℤ)≤ lim.word:=
     (Int.ofNat_le.mpr hd).trans hword
@@ -178,8 +178,8 @@ theorem need_space {lim : Limits} {free d N nb groups count R A priorCells hostW
 one canonical layout and elementary bounds on the source histograms. -/
 theorem plan {lim : Limits} {a N R A bank nb fbv gbv T fh gh bankValues groups count : ℕ}
     (Q : TritWord N) (E : Enumeration N T nb) (F G : TritWord N→ ℤ)
-    (hrows : rows Q T≤ R) (hCut : T≤1025*N) (hfDegree : fh≤2*N) (hgDegree : gh≤2*N)
-    (hfh : 1025*fh≤2*T) (hgh : 1025*gh≤2*T)
+    (hrows : rows Q T≤ R) (hCut : T≤2740*N) (hfDegree : fh≤2*N) (hgDegree : gh≤2*N)
+    (hfh : 2740*fh≤2*T) (hgh : 2740*gh≤2*T)
     (hnb : nb< 2^(2*N)) (hnn : rows Q T< 2^(2*N)) (hpos : 0< nb)
     (hbank : bank+nb≤ a) (hfbv : fbv+nb≤ a) (hgbv : gbv+nb≤ a)
     (hH : bankValues+(N+1)*nb≤ a)

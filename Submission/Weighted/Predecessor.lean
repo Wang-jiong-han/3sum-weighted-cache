@@ -1,7 +1,7 @@
 /-
 Adapted from c0ldzy17/Joshua Wharton, proof-factory/3sum-bound,
 commit 8af82141280754b0c46d3dacb926426265da6f99. Apache-2.0.
-Local change: cache digit costs (0,512,1025); ordinary algebraic rank unchanged.
+Local change: cache digit costs (0,1369,2740); ordinary algebraic rank unchanged.
 -/
 import Submission.ThreeSum.LightTernaryRankTable
 import Submission.Weighted.LightCost
@@ -109,7 +109,7 @@ theorem meets {pMain pDigit pZero pErase pRank pSearch N low high m powers
     (hbankSpace : bank+nb ≤ lim.space) (hnearSpace : near+nn ≤ lim.space)
     (hbankVals : bankVals+nb ≤ lim.space) (hnearVals : nearVals+nn ≤ lim.space)
     (hspace : powers+(2*N+1) ≤ lim.space)
-    (hword : ((nb+nn+2^(2*N+1)+1025*N+1100 : ℕ) : ℤ) ≤ lim.word)
+    (hword : ((nb+nn+2^(2*N+1)+2740*N+3000 : ℕ) : ℤ) ≤ lim.word)
     (hcontrols : ((T+active+16 : ℕ) : ℤ) ≤ lim.word)
     (hbankRead : ∀ j<nb, μ (bank+j)=(bankCodes j : ℤ))
     (hnearRead : ∀ j<nn, μ (near+j)=(nearCodes j : ℤ))
@@ -127,7 +127,7 @@ theorem meets {pMain pDigit pZero pErase pRank pSearch N low high m powers
       μ (time N L)
       (fun r ν => r=(key N low high m T active bankVals nearVals bi ni : ℤ) ∧ ν=μ) := by
   have hpowWord : ((2^(2*N+1) : ℕ) : ℤ) ≤ lim.word := by omega
-  have hscalar : ((1025*N+1100 : ℕ) : ℤ) ≤ lim.word := by omega
+  have hscalar : ((2740*N+3000 : ℕ) : ℤ) ≤ lim.word := by omega
   have htwoword : (2 : ℤ) ≤ lim.word := by omega
   have hcode := code_lt (low := low) (high := high) hm
   have hrankBound := LightWeightedCost.partialCost_le N (code N low high m) N

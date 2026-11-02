@@ -89,7 +89,7 @@ theorem scalars (maps : Fin F→Weight m p) (τ cap M b K H drift scale : ℕ)
   have hs := WeightedGlobalArenaArgumentBudget.scalar_le m p F r (entries (r := r) maps τ I).length A.sourceWord A.depth hb hdep
   have hS := hs.trans (Nat.add_le_add (Nat.mul_le_mul_left 16
     (Nat.pow_le_pow_left (show A.sourceWord+A.depth+1≤2*T+1 by omega) 2)) hcount)
-  have hT : 30000000000000≤T := by dsimp [A,numbers] at hprefix; omega
+  have hT : 30000000000000000≤T := by dsimp [A,numbers] at hprefix; omega
   have hsq : 2000≤(T+1)^2 := by nlinarith
   have hlarge := Nat.mul_le_mul_left ((T+1)^2) hsq
   rw [←pow_add] at hlarge

@@ -1,7 +1,7 @@
 /-
 Adapted from c0ldzy17/Joshua Wharton, proof-factory/3sum-bound,
 commit 8af82141280754b0c46d3dacb926426265da6f99. Apache-2.0.
-Local change: cache digit costs (0,512,1025); ordinary algebraic rank unchanged.
+Local change: cache digit costs (0,1369,2740); ordinary algebraic rank unchanged.
 -/
 import Submission.Weighted.Enumeration
 import Submission.ThreeSum.LightTernaryRank
@@ -19,8 +19,8 @@ def roundBody (pDigit : ℕ) : Stmt :=
   .set 6 (k 2 *' (v 0 -' k 1 -' v 5)) ;;
   .set 7 (v 6 +' k 1) ;;
   .call pDigit [k 2 *' v 0,v 6,v 7,v 1,v 2] 8 ;;
-  .ite (v 8 =' k 2) (.store (v 3 +' v 5) (k 1025))
-    (.store (v 3 +' v 5) (k 512 *' v 8)) ;;
+  .ite (v 8 =' k 2) (.store (v 3 +' v 5) (k 2740))
+    (.store (v 3 +' v 5) (k 1369 *' v 8)) ;;
   .store (v 4 +' v 5) (k 1)
 
 def body (pDigit : ℕ) : Stmt := .for 5 (v 0) (roundBody pDigit)
@@ -42,7 +42,7 @@ theorem meets {pMain pDigit pErase N m powers caps active d : ℕ}
     (μ : ℕ → ℤ) (hw : (lim.space : ℤ)≤lim.word)
     (hspace : powers+(2*N+1)≤lim.space)
     (hword : ((2^(2*N+1) : ℕ) : ℤ)≤lim.word)
-    (hscalar : (1100 : ℤ)≤lim.word)
+    (hscalar : (3000 : ℤ)≤lim.word)
     (hm : m<2^(2*N)) (hcaps : caps+N≤active) (hactive : active+N≤powers)
     (hpowers : Powers μ powers (2*N)) (hd : d+2*N+2≤lim.depth) :
     Meets lim P pMain d [N,m,powers,caps,active] μ (time N)
@@ -82,7 +82,7 @@ theorem meets {pMain pDigit pErase N m powers caps active d : ℕ}
       with r ξ ⟨hr,hmem⟩
     subst ξ
     light_if he hn : LightTernaryRank.digitAt N m j=2 using hr,hdigitEq,LightTernaryCodes.digitTime
-    · have hcost : digitCost (LightTernaryRank.digitAt N m j)=1025 := by simp [digitCost,he]
+    · have hcost : digitCost (LightTernaryRank.digitAt N m j)=2740 := by simp [digitCost,he]
       light_store (caps+j) (digitCost (LightTernaryRank.digitAt N m j) : ℕ) using hr,hdigitEq,hcost,LightTernaryCodes.digitTime
       light_store (active+j) (1 : ℕ) using LightTernaryCodes.digitTime
       refine ⟨by simp,(2*(N-1-j) : ℕ),(2*(N-1-j)+1 : ℕ),r,
@@ -103,8 +103,8 @@ theorem meets {pMain pDigit pErase N m powers caps active d : ℕ}
           exact hactiveRead i hi
         · subst i
           simp
-    · have hcost : digitCost (LightTernaryRank.digitAt N m j)=512*LightTernaryRank.digitAt N m j := by simp [digitCost,hn]
-      have hprod : (512 : ℤ)*(LightTernaryRank.digitAt N m j : ℤ)≤lim.word := by
+    · have hcost : digitCost (LightTernaryRank.digitAt N m j)=1369*LightTernaryRank.digitAt N m j := by simp [digitCost,hn]
+      have hprod : (1369 : ℤ)*(LightTernaryRank.digitAt N m j : ℤ)≤lim.word := by
         change LightTernaryRank.digitAt N m j≤2 at hdigitBound
         omega
       light_store (caps+j) (digitCost (LightTernaryRank.digitAt N m j) : ℕ) using hr,hdigitEq,hcost,LightTernaryCodes.digitTime

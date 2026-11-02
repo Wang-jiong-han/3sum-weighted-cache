@@ -1,7 +1,7 @@
 /-
 Adapted from c0ldzy17/Joshua Wharton, proof-factory/3sum-bound,
 commit 8af82141280754b0c46d3dacb926426265da6f99. Apache-2.0.
-Local change: cache digit costs (0,512,1025); ordinary algebraic rank unchanged.
+Local change: cache digit costs (0,1369,2740); ordinary algebraic rank unchanged.
 -/
 import Submission.Weighted.NearSource
 import Submission.ThreeSum.LightTernaryProduct
@@ -50,7 +50,7 @@ theorem meets {pMain pRanks pMetadata pMemo pColumn pCell pDigit pZero pErase pR
     (hmetadataRanks : ws+2*N*rows+N≤rankBase)
     (hrankVals : rankBase+rows≤vals) (hvals : vals+rows≤fr) (hfr : fr≤lim.space)
     (hcount : vals+rows≤pcount) (hspace : pcount≤lim.space)
-    (hword : ((nb+rows+2^(2*N+1)+1025*N+1100 : ℕ) : ℤ)≤lim.word)
+    (hword : ((nb+rows+2^(2*N+1)+2740*N+3000 : ℕ) : ℤ)≤lim.word)
     (hcontrols : ((T+N+32 : ℕ) : ℤ)≤lim.word)
     (hmemoWord : ((N+rows+2*N+h+20 : ℕ) : ℤ)≤lim.word)
     (hread : ∀ j<rows, μ (a+j)=(address (nearWords j) : ℤ))
@@ -63,7 +63,7 @@ theorem meets {pMain pRanks pMetadata pMemo pColumn pCell pDigit pZero pErase pR
     (hbankPresent : ∀ W, cacheCost W≤T → ∃ j<nb, bankWords j=W)
     (hnearPresent : ∀ W, Below W Q → T<cacheCost W → ∃ j<rows, nearWords j=W)
     (hnearRows : ∀ j<rows, Below (nearWords j) Q ∧ T<cacheCost (nearWords j))
-    (hT : h≤2*N) (hh : 1025*h≤2*T)
+    (hT : h≤2*N) (hh : 2740*h≤2*T)
     (hbankValues : ∀ j<nb, μ (bv+j)=binomialZeta source (bankWords j))
     (hvalue : ∀ R, |binomialZeta source R|≤U)
     (hV : 2*(N+1)*U≤V) (hd : d+2*N+7≤lim.depth) :
@@ -72,7 +72,7 @@ theorem meets {pMain pRanks pMetadata pMemo pColumn pCell pDigit pZero pErase pR
       (fun r ν => r=0 ∧ Kept μ ν ws ∧ ∀ j<rows, ν (vals+j)=binomialZeta source (nearWords j)) := by
   have hbaseR (R : TritWord N) (hout : T<cacheCost R) : h<rank R := by
     have hc := WeightedCache.concrete_base_bound R
-    change 2*cacheCost R≤1025*rank R at hc
+    change 2*cacheCost R≤2740*rank R at hc
     nlinarith
   let codes := fun j => address (nearWords j)
   let bi := fun i j => predecessorOrdinal bankWords nb (nearWords j) i

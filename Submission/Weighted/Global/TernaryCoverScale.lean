@@ -123,14 +123,14 @@ theorem capExponent_mul_upper (m k : ℕ) :
   omega
 
 theorem schedule_upper (m : ℕ) :
-    frequencyFactor m*(Nat.log2 (prime m^2)+1) ≤ 2^360*(m+1)^7 := by
-  have hL : fixedLength m+1 ≤ 2^45*(m+1) := by simp [fixedLength]; norm_num; omega
-  have hD : WeightedGlobalPartitionCount.partitionLoss (2380004124000*m) (292746547000*m) ≤
+    frequencyFactor m*(Nat.log2 (prime m^2)+1) ≤ 2^430*(m+1)^7 := by
+  have hL : fixedLength m+1 ≤ 2^55*(m+1) := by simp [fixedLength]; norm_num; omega
+  have hD : WeightedGlobalPartitionCount.partitionLoss (2379766416784020*m) (292929977780940*m) ≤
       (fixedLength m+1)^3 := by
     unfold WeightedGlobalPartitionCount.partitionLoss fixedLength
-    have h1 : 2*(2380004124000*m)+1 ≤ 30000000000000*m+1 := by omega
-    have h2 : 3*(292746547000*m)+1 ≤ 30000000000000*m+1 := by omega
-    have h3 : 2*(292746547000*m)+1 ≤ 30000000000000*m+1 := by omega
+    have h1 : 2*(2379766416784020*m)+1 ≤ 30000000000000000*m+1 := by omega
+    have h2 : 3*(292929977780940*m)+1 ≤ 30000000000000000*m+1 := by omega
+    have h3 : 2*(292929977780940*m)+1 ≤ 30000000000000000*m+1 := by omega
     simpa only [pow_succ, pow_zero, one_mul] using Nat.mul_le_mul (Nat.mul_le_mul h1 h2) h3
   have hF : frequencyFactor m ≤ 2^42*(fixedLength m+1)^6 := by
     have h3 : (3 : ℕ)^16 ≤ 2^32 := by norm_num
@@ -148,12 +148,12 @@ theorem schedule_upper (m : ℕ) :
   calc
     _ ≤ (2^42*(fixedLength m+1)^6)*(8*(fixedLength m+1)) := Nat.mul_le_mul hF ht
     _ = 2^45*(fixedLength m+1)^7 := by norm_num; ring
-    _ ≤ 2^45*(2^45*(m+1))^7 := Nat.mul_le_mul_left _ (Nat.pow_le_pow_left hL 7)
+    _ ≤ 2^45*(2^55*(m+1))^7 := Nat.mul_le_mul_left _ (Nat.pow_le_pow_left hL 7)
     _ = _ := by rw [mul_pow, ← pow_mul, ← mul_assoc, ← pow_add]
 
 def momentOrder (C : ℕ) : ℕ := 100000*C
 def scaleAux (C c d : ℕ) : ℕ :=
-  C*momentOrder C*(46*d+367+(2*d+15)+1)+
+  C*momentOrder C*(56*d+437+(2*d+15)+1)+
     C*(8*(momentOrder C)^2+momentOrder C+26)+c+2
 def scale (C c d : ℕ) : ℕ := 2^(2*scaleAux C c d)
 
@@ -162,15 +162,15 @@ theorem scale_pos (C c d : ℕ) : 0 < scale C c d := by unfold scale; positivity
 theorem polynomial_schedule_upper (c d t : ℕ) (hc : c ≤ t) :
     (c*(fixedLength (2^(2*t))+1)^d)*
       (frequencyFactor (2^(2*t))*(Nat.log2 (prime (2^(2*t))^2)+1)) ≤
-    2^(46*d+367+(2*d+15)*t) := by
+    2^(56*d+437+(2*d+15)*t) := by
   have hc2 : c ≤ 2^t := hc.trans (Nat.le_of_lt (Nat.lt_pow_self (by decide : 1 < (2 : ℕ))))
   have hm : 2^(2*t)+1 ≤ 2^(2*t+1) := by rw [pow_succ]; have := Nat.one_le_pow (2*t) 2 (by decide); omega
-  have hL : fixedLength (2^(2*t))+1 ≤ 2^45*(2^(2*t)+1) := by simp [fixedLength]; norm_num; omega
+  have hL : fixedLength (2^(2*t))+1 ≤ 2^55*(2^(2*t)+1) := by simp [fixedLength]; norm_num; omega
   have hb := Nat.mul_le_mul (Nat.mul_le_mul hc2 (Nat.pow_le_pow_left hL d)) (schedule_upper (2^(2*t)))
   calc
-    _ ≤ (2^t*(2^45*(2^(2*t)+1))^d)*(2^360*(2^(2*t)+1)^7) := hb
-    _ = 2^(t+45*d+360)*(2^(2*t)+1)^(d+7) := by rw [mul_pow, ← pow_mul, pow_add]; ring
-    _ ≤ 2^(t+45*d+360)*(2^(2*t+1))^(d+7) := Nat.mul_le_mul_left _ (Nat.pow_le_pow_left hm _)
+    _ ≤ (2^t*(2^55*(2^(2*t)+1))^d)*(2^430*(2^(2*t)+1)^7) := hb
+    _ = 2^(t+55*d+430)*(2^(2*t)+1)^(d+7) := by rw [mul_pow, ← pow_mul, pow_add]; ring
+    _ ≤ 2^(t+55*d+430)*(2^(2*t+1))^(d+7) := Nat.mul_le_mul_left _ (Nat.pow_le_pow_left hm _)
     _ = _ := by rw [← pow_mul, ← pow_add]; congr 1; ring
 
 /-- Every polynomial carry factor and both repeated cover factors fit an
@@ -183,7 +183,7 @@ theorem selected_scale_bound (C c d : ℕ) (hC : 0 < C) :
   let k := momentOrder C
   let t := scaleAux C c d
   let m := scale C c d
-  let A := 46*d+367
+  let A := 56*d+437
   let D := 2*d+15
   have hk : 0 < k := by dsimp [k, momentOrder]; positivity
   have hkt : C*k*A ≤ t := by dsimp [t,scaleAux,A,k]; ring_nf; omega

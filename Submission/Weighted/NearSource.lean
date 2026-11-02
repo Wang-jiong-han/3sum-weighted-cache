@@ -1,7 +1,7 @@
 /-
 Adapted from c0ldzy17/Joshua Wharton, proof-factory/3sum-bound,
 commit 8af82141280754b0c46d3dacb926426265da6f99. Apache-2.0.
-Local change: cache digit costs (0,512,1025); ordinary algebraic rank unchanged.
+Local change: cache digit costs (0,1369,2740); ordinary algebraic rank unchanged.
 -/
 import Submission.Weighted.PhysicalEuler
 
@@ -63,7 +63,7 @@ theorem meets {pMain pRanks pMetadata pMemo pColumn pCell pDigit pZero pErase pR
     (hmetadataRanks : ws+2*N*rows+N≤rankBase)
     (hrankVals : rankBase+rows≤vals) (hvals : vals+rows≤fr) (hfr : fr≤lim.space)
     (hspace : pcount≤lim.space)
-    (hword : ((nb+rows+2^(2*N+1)+1025*N+1100 : ℕ) : ℤ)≤lim.word)
+    (hword : ((nb+rows+2^(2*N+1)+2740*N+3000 : ℕ) : ℤ)≤lim.word)
     (hcontrols : ((T+N+32 : ℕ) : ℤ)≤lim.word)
     (hmemoWord : ((N+rows+maxRank+h+20 : ℕ) : ℤ)≤lim.word)
     (hread : ∀ j<rows, μ (a+j)=(codes j : ℤ))

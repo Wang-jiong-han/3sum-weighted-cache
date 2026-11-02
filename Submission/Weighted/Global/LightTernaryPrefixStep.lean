@@ -71,7 +71,7 @@ structure PrepareReady (X : Inputs) (lim : Limits) (depth : ℕ) (μ : ℕ→ℤ
   seedEnd : X.seed+48≤X.prefixFree
   Fread : μ (X.template+99)=(X.Fbase:ℤ)
   Gread : μ (X.template+100)=(X.Gbase:ℤ)
-  cutoff : LightWeightedGlobalPrefixSetup.T X.m (X.j+1)+1024≤(1024*(X.alphaRank*(X.j+1))+3*(X.alpha2*(X.j+1)))
+  cutoff : LightWeightedGlobalPrefixSetup.T X.m (X.j+1)+2739≤(2738*(X.alphaRank*(X.j+1))+6*(X.alpha2*(X.j+1)))
   Nword : (LightWeightedGlobalPrefixSetup.N X.m (X.j+1):ℤ)+1≤lim.word
   scalarWords : ∀x∈(LightWeightedGlobalPrefixHeader.args X.template X.liveHeader
       (LightWeightedGlobalPrefixSetup.headerAt X.prefixFree X.m (X.j+1)) (X.j+1) X.m X.p X.power X.alpha2 X.alphaRank X.localQ X.radix X.J++

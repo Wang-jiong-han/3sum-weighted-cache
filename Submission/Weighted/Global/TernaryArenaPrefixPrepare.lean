@@ -52,7 +52,7 @@ def scalars (X : Inputs) : List ℕ :=
    X.power*X.p,X.alpha2*(X.j+1),2^(X.alpha2*(X.j+1)),X.alphaRank*(X.j+1),
    (LightWeightedGlobalPrefixSetup.N X.m (X.j+1)+1)*LightWeightedGlobalPrefixSetup.nb X.m (X.j+1),
    LightWeightedGlobalPrefixSetup.N X.m (X.j+1)*LightWeightedGlobalPrefixSetup.nb X.m (X.j+1),
-   (1024*(X.alphaRank*(X.j+1))+3*(X.alpha2*(X.j+1))),(1024*(X.alphaRank*(X.j+1))+3*(X.alpha2*(X.j+1)))-LightWeightedGlobalPrefixSetup.T X.m (X.j+1)-1,
+   (2738*(X.alphaRank*(X.j+1))+6*(X.alpha2*(X.j+1))),(2738*(X.alphaRank*(X.j+1))+6*(X.alpha2*(X.j+1)))-LightWeightedGlobalPrefixSetup.T X.m (X.j+1)-1,
    LightTernaryRepeatWord.value X.localQ X.radix (X.j+1),
    X.xB*X.p,X.xC*X.p,X.xP*X.a,X.tB*9,X.tC*9,X.tP*X.b*X.scale,X.tP*X.b,9]
 
@@ -129,7 +129,7 @@ theorem ready {lim : Limits} {p m F j J n U0 a b scale depth : ℕ}
     budgetWords:=?_
     midWord:=hwordIndex 29 (by decide)
     nineWord:=hwordIndex 30 (by decide) }
-  · change LightWeightedGlobalPrefixSetup.T m (j+1)+1024≤(1024*(alphaRank m*(j+1))+3*(fixedAlpha m 2*(j+1)))
+  · change LightWeightedGlobalPrefixSetup.T m (j+1)+2739≤(2738*(alphaRank m*(j+1))+6*(fixedAlpha m 2*(j+1)))
     dsimp [LightWeightedGlobalPrefixSetup.T,alphaRank,fixedAlpha]
     have hpos : 1≤(j+1)*m:=by nlinarith
     nlinarith

@@ -83,7 +83,7 @@ theorem meets {e : Entries} {pMain N out bankValues caps d : ℕ}
       (fun v ν => v=stageValue N (LightWeightedWantedQuery.H F G) Q ∧ Kept μ ν f.a) := by
   have hw := Rf.hw
   have hws : f.ws≤lim.space := by have := Rf.hmetadataRanks; have := Rf.hrankVals; have := Rf.hvals; have := Rf.hfr; omega
-  have hD : D Q f.T≤1025*N := (Nat.sub_le _ _).trans (LightWeightedFrozenQuery.cacheCost_le_linear Q)
+  have hD : D Q f.T≤2740*N := (Nat.sub_le _ _).trans (LightWeightedFrozenQuery.cacheCost_le_linear Q)
   have hsetup := LightWeightedNearSetup.meets (d := d+1)
     lib.setup lib.powers lib.digits lib.wanted.near.digit lib.wanted.near.erase lib.enum lib.branch
     μ Q hw (Rf.hp.trans hws) hsetupWord Rf.costWord hD hdst hcaps hactive (by omega)

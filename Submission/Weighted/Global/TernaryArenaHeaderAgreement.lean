@@ -46,7 +46,7 @@ theorem output_rank (Q : WeightedGlobalGoodOutputCatalog.Output m) (r : ℕ) :
 
 theorem output_cost (Q : WeightedGlobalGoodOutputCatalog.Output m) (r : ℕ) :
     WeightedGlobalBank.cacheCost (WeightedGlobalRepeatedWords.canonical (fun _ : Fin r=>Q.val))=
-      (1024*alphaRank m+3*fixedAlpha m 2)*r := by
+      (2738*alphaRank m+6*fixedAlpha m 2)*r := by
   have hQ : HasType Q.val (fixedPi m) := by
     simpa [TernaryCoverLocal.vertices] using Q.property
   have ht := WeightedGlobalRepeatedWords.canonical_typed (fun _ : Fin r=>Q.val) (fixedPi m) (fun _=>hQ)

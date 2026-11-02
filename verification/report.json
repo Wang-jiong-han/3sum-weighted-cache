@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "checked_at": "2026-11-01T20:16:33.330830+00:00",
+  "complete_solver_target": "384055881637/200000000000",
+  "model_lower": "96013970409/50000000000",
+  "model_strict_upper": "2400349260231/1250000000000",
+  "model_enclosure_width": "3/625000000000",
+  "remaining_exponent_gain": "1/200000000000",
+  "lean": "4.33.1",
+  "mathlib": "0df444a360eaa60ab8c11dca51a86af692955474",
+  "dependency_modules": 1568,
+  "certificate_leaves": 16680,
+  "certificate_subdivisions": 16679,
+  "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "algorithm_upper_lean_checked": true,
+  "model_lower_lean_checked": true,
+  "model_upper_lean_checked": true,
+  "official_submission": "not submitted",
+  "build_method": "All new modules compiled locally; byte-identical checked solver imports reused",
+  "portable_import_and_axiom_audit": true
+}

@@ -1,7 +1,7 @@
 /-
 Adapted from c0ldzy17/Joshua Wharton, proof-factory/3sum-bound,
 commit 8af82141280754b0c46d3dacb926426265da6f99. Apache-2.0.
-Local change: cache digit costs (0,512,1025); ordinary algebraic rank unchanged.
+Local change: cache digit costs (0,1369,2740); ordinary algebraic rank unchanged.
 -/
 import Submission.Weighted.Predecessor
 
@@ -102,7 +102,7 @@ theorem meets {pMain pCell pDigit pZero pErase pRank pSearch N low high a n powe
     (ha : a+n≤dst) (hbankSpace : bank+nb≤dst) (hnearSpace : near+nn≤dst)
     (hspace : powers+(2*N+1)≤dst) (hdst : dst+2*stride*n≤lim.space)
     (hbankVals : bv+nb≤lim.space) (hnearVals : nv+nn≤lim.space)
-    (hword : ((nb+nn+2^(2*N+1)+1025*N+1100 : ℕ) : ℤ)≤lim.word)
+    (hword : ((nb+nn+2^(2*N+1)+2740*N+3000 : ℕ) : ℤ)≤lim.word)
     (hcontrols : ((T+active+stride+16 : ℕ) : ℤ)≤lim.word)
     (hread : ∀ j<n, μ (a+j)=(codes j : ℤ))
     (hbankRead : ∀ j<nb, μ (bank+j)=(bankCodes j : ℤ))

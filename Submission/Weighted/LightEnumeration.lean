@@ -1,7 +1,7 @@
 /-
 Adapted from c0ldzy17/Joshua Wharton, proof-factory/3sum-bound,
 commit 8af82141280754b0c46d3dacb926426265da6f99. Apache-2.0.
-Local change: cache digit costs (0,512,1025); ordinary algebraic rank unchanged.
+Local change: cache digit costs (0,1369,2740); ordinary algebraic rank unchanged.
 -/
 import Submission.ThreeSum.LightSubsetEnumeration
 import Submission.Weighted.Addresses
@@ -26,58 +26,58 @@ def output (N T pref : ℕ) : List ℤ :=
 @[simp] theorem output_zero (T pref : ℕ) : output 0 T pref = [pref] := by
   simp [output,codes]
 
-theorem digits_low {T : ℕ} (hT : T < 512) : digits T = [0] := by
-  simp [digits,List.range_succ,digitCost,show ¬512≤T by omega,show ¬1025≤T by omega]
-theorem digits_mid {T : ℕ} (hT : 512 ≤ T) (hT' : T < 1025) : digits T = [0,1] := by
-  simp [digits,List.range_succ,digitCost,hT,show ¬1025≤T by omega]
-theorem digits_full {T : ℕ} (hT : 1025 ≤ T) : digits T = [0,1,2] := by
-  simp [digits,List.range_succ,digitCost,hT,show 512≤T by omega]
+theorem digits_low {T : ℕ} (hT : T < 1369) : digits T = [0] := by
+  simp [digits,List.range_succ,digitCost,show ¬1369≤T by omega,show ¬2740≤T by omega]
+theorem digits_mid {T : ℕ} (hT : 1369 ≤ T) (hT' : T < 2740) : digits T = [0,1] := by
+  simp [digits,List.range_succ,digitCost,hT,show ¬2740≤T by omega]
+theorem digits_full {T : ℕ} (hT : 2740 ≤ T) : digits T = [0,1,2] := by
+  simp [digits,List.range_succ,digitCost,hT,show 1369≤T by omega]
 
-theorem output_succ_low {T : ℕ} (hT : T < 512) (N pref : ℕ) :
+theorem output_succ_low {T : ℕ} (hT : T < 1369) (N pref : ℕ) :
     output (N+1) T pref = output N T pref := by
   simp [output,codes,digits_low hT,digitCode]
-theorem output_succ_mid {T : ℕ} (hT : 512 ≤ T) (hT' : T < 1025) (N pref : ℕ) :
-    output (N+1) T pref = output N T pref ++ output N (T-512) (pref+4^N) := by
+theorem output_succ_mid {T : ℕ} (hT : 1369 ≤ T) (hT' : T < 2740) (N pref : ℕ) :
+    output (N+1) T pref = output N T pref ++ output N (T-1369) (pref+4^N) := by
   simp [output,codes,digits_mid hT hT',digitCode,List.map_append,List.map_map,
     Function.comp_def,Nat.add_assoc]
-theorem output_succ_full {T : ℕ} (hT : 1025 ≤ T) (N pref : ℕ) :
+theorem output_succ_full {T : ℕ} (hT : 2740 ≤ T) (N pref : ℕ) :
     output (N+1) T pref = output N T pref ++
-      output N (T-512) (pref+4^N) ++ output N (T-1025) (pref+3*4^N) := by
+      output N (T-1369) (pref+4^N) ++ output N (T-2740) (pref+3*4^N) := by
   simp [output,codes,digits_full hT,digitCode,List.map_append,List.map_map,
     Function.comp_def,Nat.add_assoc,List.append_assoc]
 
-theorem visits_low_succ {T : ℕ} (hT : T < 512) (N : ℕ) :
+theorem visits_low_succ {T : ℕ} (hT : T < 1369) (N : ℕ) :
     visits (N+1) T = 1+visits N T := by simp [visits,digits_low hT]
-theorem visits_mid_succ {T : ℕ} (hT : 512 ≤ T) (hT' : T < 1025) (N : ℕ) :
-    visits (N+1) T = 1+visits N T+visits N (T-512) := by
+theorem visits_mid_succ {T : ℕ} (hT : 1369 ≤ T) (hT' : T < 2740) (N : ℕ) :
+    visits (N+1) T = 1+visits N T+visits N (T-1369) := by
   simp [visits,digits_mid hT hT',Nat.add_assoc]
-theorem visits_full_succ {T : ℕ} (hT : 1025 ≤ T) (N : ℕ) :
-    visits (N+1) T = 1+visits N T+visits N (T-512)+visits N (T-1025) := by
+theorem visits_full_succ {T : ℕ} (hT : 2740 ≤ T) (N : ℕ) :
+    visits (N+1) T = 1+visits N T+visits N (T-1369)+visits N (T-2740) := by
   simp [visits,digits_full hT,Nat.add_assoc]
 theorem visits_pos (N T : ℕ) : 1 ≤ visits N T := by cases N <;> simp [visits]
 theorem visits_child0 (N T : ℕ) : 1+visits N T ≤ visits (N+1) T := by
-  by_cases hl : T<512
+  by_cases hl : T<1369
   · simp [visits_low_succ hl]
-  · by_cases hm : T<1025
-    · simp [visits_mid_succ (by omega : 512≤T) hm] <;> omega
-    · simp [visits_full_succ (by omega : 1025≤T)] <;> omega
-theorem visits_child01 {T : ℕ} (hT : 512 ≤ T) (N : ℕ) :
-    1+visits N T+visits N (T-512) ≤ visits (N+1) T := by
-  by_cases hm : T<1025
+  · by_cases hm : T<2740
+    · simp [visits_mid_succ (by omega : 1369≤T) hm] <;> omega
+    · simp [visits_full_succ (by omega : 2740≤T)] <;> omega
+theorem visits_child01 {T : ℕ} (hT : 1369 ≤ T) (N : ℕ) :
+    1+visits N T+visits N (T-1369) ≤ visits (N+1) T := by
+  by_cases hm : T<2740
   · simp [visits_mid_succ hT hm]
-  · simp [visits_full_succ (by omega : 1025≤T)] <;> omega
+  · simp [visits_full_succ (by omega : 2740≤T)] <;> omega
 
 theorem codes_child0 (N T : ℕ) : (codes N T).length ≤ (codes (N+1) T).length := by
-  by_cases hl : T<512
+  by_cases hl : T<1369
   · simp [codes,digits_low hl,digitCode]
-  · by_cases hm : T<1025
-    · simp [codes,digits_mid (by omega : 512≤T) hm,digitCode]
-    · simp [codes,digits_full (by omega : 1025≤T),digitCode]
-theorem codes_child01 {T : ℕ} (hT : 512≤T) (N : ℕ) :
-    (codes N T).length+(codes N (T-512)).length ≤ (codes (N+1) T).length := by
-  by_cases hm : T<1025
+  · by_cases hm : T<2740
+    · simp [codes,digits_mid (by omega : 1369≤T) hm,digitCode]
+    · simp [codes,digits_full (by omega : 2740≤T),digitCode]
+theorem codes_child01 {T : ℕ} (hT : 1369≤T) (N : ℕ) :
+    (codes N T).length+(codes N (T-1369)).length ≤ (codes (N+1) T).length := by
+  by_cases hm : T<2740
   · simp [codes,digits_mid hT hm,digitCode]
-  · simp [codes,digits_full (by omega : 1025≤T),digitCode] <;> omega
+  · simp [codes,digits_full (by omega : 2740≤T),digitCode] <;> omega
 
 theorem pow_two_even (N : ℕ) : 2^(2*N) = 4^N := by
   rw [pow_mul]
@@ -89,13 +89,13 @@ def body (pSelf : ℕ) : Stmt :=
     (.store (v 3) (v 2) ;; .set 0 (k 1))
     (.set 5 (v 0 -' k 1) ;;
       .call pSelf [v 5,v 1,v 2,v 3,v 4] 6 ;;
-      .ite (v 1 <' k 512)
+      .ite (v 1 <' k 1369)
         (.set 0 (v 6))
-        (.call pSelf [v 5,v 1 -' k 512,
+        (.call pSelf [v 5,v 1 -' k 1369,
           v 2 +' M (v 4 +' k 2 *' v 5),v 3 +' v 6,v 4] 7 ;;
-          .ite (v 1 <' k 1025)
+          .ite (v 1 <' k 2740)
             (.set 0 (v 6 +' v 7))
-            (.call pSelf [v 5,v 1 -' k 1025,
+            (.call pSelf [v 5,v 1 -' k 2740,
               v 2 +' k 3 *' M (v 4 +' k 2 *' v 5),v 3 +' v 6 +' v 7,v 4] 8 ;;
               .set 0 (v 6 +' v 7 +' v 8))))
 
@@ -110,9 +110,9 @@ theorem meets {pEnum W powers : ℕ}
     (hw : (lim.space : ℤ) ≤ lim.word)
     (hspace : powers+(2*W+1) ≤ lim.space)
     (hword : ((4^(W+1) : ℕ) : ℤ) ≤ lim.word)
-    (hcontrol : ((1025*W+1100 : ℕ) : ℤ) ≤ lim.word) :
+    (hcontrol : ((2740*W+3000 : ℕ) : ℤ) ≤ lim.word) :
     ∀ N T pref dst : ℕ, ∀ μ : ℕ → ℤ,
-      N ≤ W → T ≤ 1025*W → pref+4^N ≤ 4^W →
+      N ≤ W → T ≤ 2740*W → pref+4^N ≤ 4^W →
       dst+(codes N T).length ≤ powers → Powers μ powers (2*W) →
       ∀ d, d+N ≤ lim.depth →
       Meets lim P pEnum d [N,T,pref,dst,powers] μ (time N T)
@@ -165,17 +165,17 @@ theorem meets {pEnum W powers : ℕ}
       intro i hi
       rw [hsame0 (powers+i) (Or.inr (by omega))]
       exact hpowers i hi
-    light_if hzeroZ hposZ : (T : ℤ) < 512 using time,hv0
-    · have hzero : T<512 := by omega
+    light_if hzeroZ hposZ : (T : ℤ) < 1369 using time,hv0
+    · have hzero : T<1369 := by omega
       light_set ((codes N T).length : ℕ) using time,hn0,visits_low_succ hzero
       refine ⟨by simpa [codes,digits_low hzero,digitCode] using hn0,?_,?_⟩
       · simpa [output_succ_low hzero] using hseg0
       · simpa [codes,digits_low hzero,digitCode] using hsame0
-    · have hpos : 512 ≤ T := by omega
+    · have hpos : 1369 ≤ T := by omega
       have hv01 := visits_child01 hpos N
       have hn01le := codes_child01 hpos N
-      have hdst1 : dst+(codes N T).length+(codes N (T-512)).length ≤ powers := by omega
-      have hdst1Words : dst+(words N T).length+(words N (T-512)).length ≤ powers := by
+      have hdst1 : dst+(codes N T).length+(codes N (T-1369)).length ≤ powers := by omega
+      have hdst1Words : dst+(words N T).length+(words N (T-1369)).length ≤ powers := by
         simpa using hdst1
       have hprefix1 : pref+4^N+4^N ≤ 4^W := by omega
       have hpowerRead := hpowers1 (2*N) (by omega)
@@ -195,35 +195,35 @@ theorem meets {pEnum W powers : ℕ}
       have hreadWord : μ1 (powers+2*N) ≤ lim.word := by
         rw [hpowerRead]
         exact (show ((4^N : ℕ) : ℤ) ≤ ((4^W : ℕ) : ℤ) by exact_mod_cast (Nat.pow_le_pow_right (by decide : 1 ≤ 4) hNW)).trans hpowWord
-      have hchild1 := ih (T-512) (pref+4^N) (dst+(codes N T).length) μ1
+      have hchild1 := ih (T-1369) (pref+4^N) (dst+(codes N T).length) μ1
         hNW (by omega) hprefix1 hdst1 hpowers1 (d+1) (by omega)
       light_call hchild1 using time,hv01,hn0,hargPrefix1,hpowerRead,hpowerReadZ
         with n1 μ2 ⟨hn1,hseg1,hsame1⟩
       have hseg0' : Seg μ2 dst (output N T pref) :=
         hseg0.of_sameOutside hsame1 (Or.inl (by simp))
       have hsame01 : SameOutside μ μ2 dst
-          ((codes N T).length+(codes N (T-512)).length) :=
+          ((codes N T).length+(codes N (T-1369)).length) :=
         hsame0.then hsame1 (fun a ha => by constructor <;> omega)
-      light_if honeZ htwoZ : (T : ℤ) < 1025 using time,hv01
-      · have hone : T<1025 := by omega
-        have htotalBound : (((codes N T).length+(codes N (T-512)).length : ℕ) : ℤ) ≤ lim.word := by
-          exact (show (((codes N T).length+(codes N (T-512)).length : ℕ) : ℤ) ≤ (lim.space : ℤ) by exact_mod_cast (show (codes N T).length+(codes N (T-512)).length ≤ lim.space by omega)).trans hw
-        have htotalWords : (((words N T).length+(words N (T-512)).length : ℕ) : ℤ) ≤ lim.word := by simpa using htotalBound
-        light_set ((codes N T).length+(codes N (T-512)).length : ℕ)
+      light_if honeZ htwoZ : (T : ℤ) < 2740 using time,hv01
+      · have hone : T<2740 := by omega
+        have htotalBound : (((codes N T).length+(codes N (T-1369)).length : ℕ) : ℤ) ≤ lim.word := by
+          exact (show (((codes N T).length+(codes N (T-1369)).length : ℕ) : ℤ) ≤ (lim.space : ℤ) by exact_mod_cast (show (codes N T).length+(codes N (T-1369)).length ≤ lim.space by omega)).trans hw
+        have htotalWords : (((words N T).length+(words N (T-1369)).length : ℕ) : ℤ) ≤ lim.word := by simpa using htotalBound
+        light_set ((codes N T).length+(codes N (T-1369)).length : ℕ)
           using time,hn0,hn1,visits_mid_succ hpos hone
         refine ⟨?_,?_,?_⟩
         · simp [codes,digits_mid hpos hone,digitCode]
         · rw [output_succ_mid hpos hone,seg_append,output_length]
           exact ⟨hseg0',by simpa using hseg1⟩
         · simpa [codes,digits_mid hpos hone,digitCode] using hsame01
-      · have htwo : 1025 ≤ T := by omega
+      · have htwo : 2740 ≤ T := by omega
         have hcount : (codes (N+1) T).length = (codes N T).length+
-            (codes N (T-512)).length+(codes N (T-1025)).length := by
+            (codes N (T-1369)).length+(codes N (T-2740)).length := by
           simp [codes,digits_full htwo,digitCode,Nat.add_assoc]
-        have hdst2 : dst+(codes N T).length+(codes N (T-512)).length+
-            (codes N (T-1025)).length ≤ powers := by omega
-        have hdst2Words : dst+(words N T).length+(words N (T-512)).length+
-            (words N (T-1025)).length ≤ powers := by simpa using hdst2
+        have hdst2 : dst+(codes N T).length+(codes N (T-1369)).length+
+            (codes N (T-2740)).length ≤ powers := by omega
+        have hdst2Words : dst+(words N T).length+(words N (T-1369)).length+
+            (words N (T-2740)).length ≤ powers := by simpa using hdst2
         have hpowers2 : Powers μ2 powers (2*W) := by
           intro i hi
           rw [hsame1 (powers+i) (Or.inr (by omega))]
@@ -244,23 +244,23 @@ theorem meets {pEnum W powers : ℕ}
           rw [hpowerRead2]
           exact (show 3*((4^N : ℕ) : ℤ) ≤ ((4^W : ℕ) : ℤ) by exact_mod_cast (show 3*4^N ≤ 4^W by omega)).trans hpowWord
         have hprefix2 : pref+3*4^N+4^N ≤ 4^W := by omega
-        have hchild2 := ih (T-1025) (pref+3*4^N)
-          (dst+(codes N T).length+(codes N (T-512)).length) μ2
+        have hchild2 := ih (T-2740) (pref+3*4^N)
+          (dst+(codes N T).length+(codes N (T-1369)).length) μ2
           hNW (by omega) hprefix2 hdst2 hpowers2 (d+1) (by omega)
         light_call hchild2 using time,visits_full_succ htwo,hn0,hn1,hargPrefix2,hpowerRead2,hpowerRead2Z
           with n2 μ3 ⟨hn2,hseg2,hsame2⟩
-        have htotalBound : (((codes N T).length+(codes N (T-512)).length+
-            (codes N (T-1025)).length : ℕ) : ℤ) ≤ lim.word := by
-          exact (show (((codes N T).length+(codes N (T-512)).length+
-            (codes N (T-1025)).length : ℕ) : ℤ) ≤ (lim.space : ℤ) by exact_mod_cast (show (codes N T).length+(codes N (T-512)).length+(codes N (T-1025)).length ≤ lim.space by omega)).trans hw
+        have htotalBound : (((codes N T).length+(codes N (T-1369)).length+
+            (codes N (T-2740)).length : ℕ) : ℤ) ≤ lim.word := by
+          exact (show (((codes N T).length+(codes N (T-1369)).length+
+            (codes N (T-2740)).length : ℕ) : ℤ) ≤ (lim.space : ℤ) by exact_mod_cast (show (codes N T).length+(codes N (T-1369)).length+(codes N (T-2740)).length ≤ lim.space by omega)).trans hw
         have hseg01 : Seg μ2 dst
-            (output N T pref ++ output N (T-512) (pref+4^N)) := by
+            (output N T pref ++ output N (T-1369) (pref+4^N)) := by
           rw [seg_append,output_length]
           exact ⟨hseg0',hseg1⟩
         have hseg01' : Seg μ3 dst
-            (output N T pref ++ output N (T-512) (pref+4^N)) :=
+            (output N T pref ++ output N (T-1369) (pref+4^N)) :=
           hseg01.of_sameOutside hsame2 (Or.inl (by simp [Nat.add_assoc]))
-        light_set ((codes N T).length+(codes N (T-512)).length+(codes N (T-1025)).length : ℕ)
+        light_set ((codes N T).length+(codes N (T-1369)).length+(codes N (T-2740)).length : ℕ)
           using time,visits_full_succ htwo,hn0,hn1,hn2
         refine ⟨by simp [hcount],?_,?_⟩
         · rw [output_succ_full htwo,seg_append,List.length_append,output_length,output_length]
@@ -274,8 +274,8 @@ theorem program_meets {W powers N T pref dst d : ℕ} {μ : ℕ → ℤ}
     (hw : (lim.space : ℤ) ≤ lim.word)
     (hspace : powers+(2*W+1) ≤ lim.space)
     (hword : ((4^(W+1) : ℕ) : ℤ) ≤ lim.word)
-    (hcontrol : ((1025*W+1100 : ℕ) : ℤ) ≤ lim.word)
-    (hN : N ≤ W) (hT : T ≤ 1025*W) (hprefix : pref+4^N ≤ 4^W)
+    (hcontrol : ((2740*W+3000 : ℕ) : ℤ) ≤ lim.word)
+    (hN : N ≤ W) (hT : T ≤ 2740*W) (hprefix : pref+4^N ≤ 4^W)
     (hdst : dst+(codes N T).length ≤ powers) (hpowers : Powers μ powers (2*W))
     (hd : d+N ≤ lim.depth) :
     Meets lim program 0 d [N,T,pref,dst,powers] μ (time N T)

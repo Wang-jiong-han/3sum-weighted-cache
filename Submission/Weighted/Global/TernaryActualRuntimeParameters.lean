@@ -19,12 +19,12 @@ set_option maxHeartbeats 2000000
 theorem runtime_margin {K m : ℕ} (hK : 100000000000000000000≤K) (c d : ℕ)
     (hgood : GoodBlock K m)
     (hover : overheadCharge (selectedMoment K) c d m<microAllowance K) :
-    fullExponent K (selectedMoment K) c d m+microAllowance K+(1/1250000000:ℝ)<
+    fullExponent K (selectedMoment K) c d m+microAllowance K+(1/50000000000000:ℝ)<
       WeightedGlobalParameters.targetExponent:=by
   have ht:=full_exponent_lt hK c d hgood hover
   have hk : (100000000000000000000:ℝ)≤K:=by exact_mod_cast hK
   have hp : (0:ℝ)<K:=by linarith
-  have hμ : microAllowance K<(1/1250000000:ℝ):=by
+  have hμ : microAllowance K<(1/50000000000000:ℝ):=by
     unfold microAllowance
     apply (div_lt_iff₀ (by positivity)).mpr
     nlinarith
@@ -40,7 +40,7 @@ theorem simultaneous_parameters {K : ℕ} (hK : 100000000000000000000≤K)
       carryExponent m (2^t) κ<microAllowance K ∧
       (2*K).factorial*(2^t)^(2*K)<nativePrime K m ∧
       2*(2^t)<nativePrime K m ∧
-      fullExponent K (selectedMoment K) c d m+microAllowance K+(1/1250000000:ℝ)<
+      fullExponent K (selectedMoment K) c d m+microAllowance K+(1/50000000000000:ℝ)<
         WeightedGlobalParameters.targetExponent:=by
   obtain ⟨t,m,ht,hN,hgood,hover,hcarry,hminor,hprime⟩:=
     WeightedGlobalSignedParameters.simultaneous_parameters hK hκ c d N

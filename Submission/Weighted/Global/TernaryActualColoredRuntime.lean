@@ -24,7 +24,7 @@ set_option maxHeartbeats 10000000
 set_option maxRecDepth 24000
 attribute [local instance] Classical.propDecidable
 
-def exponent : ℝ :=2400349271/1250000000
+def exponent : ℝ :=48006985204623/25000000000000
 def J (m β κ n : ℕ) :=WeightedGlobalSignedPadding.paddedLength β (n^κ) (radixLength m n)
 
 /-- This function is independent of every source value, color, field
@@ -423,7 +423,7 @@ theorem selected_room {K : ℕ} (hK : 100000000000000000000≤K) :
     WeightedGlobalCountFrontendBudget.frontendExponent+microAllowance K<exponent:=by
   have hk : (100000000000000000000:ℝ)≤K:=by exact_mod_cast hK
   have hp : (0:ℝ)<K:=by linarith
-  have hμ : microAllowance K<(1/1250000000:ℝ):=by
+  have hμ : microAllowance K<(1/50000000000000:ℝ):=by
     unfold microAllowance
     apply (div_lt_iff₀ (by positivity)).mpr
     nlinarith

@@ -70,7 +70,7 @@ theorem hybrid_polyNeed (P : Profile κ) : PolyNeed P.hybridNeed :=
 
 theorem hybrid_time_target (P : Profile κ) :
     ∀ᶠ n : ℕ in atTop,
-      timeUpTo P.hybridTime n ((n:ℝ)^(κ:ℝ))≤(n:ℝ)^(96013971/50000000:ℝ) :=
+      timeUpTo P.hybridTime n ((n:ℝ)^(κ:ℝ))≤(n:ℝ)^(384055881637/200000000000:ℝ) :=
   TernaryHybridCosts.timeUpTo_eventually P.fast_powerBound
     (by norm_num [exponent]) (by norm_num [exponent]) κ P.cutoff
 

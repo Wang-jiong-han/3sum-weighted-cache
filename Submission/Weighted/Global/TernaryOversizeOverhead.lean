@@ -72,11 +72,11 @@ def baseFactor (K k c d m : ℕ) : ℕ :=
     rawThreshold (nativePrime K m) (sourceCap m (nativePrime K m)) k
 
 theorem frequency_factor_upper (m : ℕ) : frequencyFactor m ≤ 2^42*(fixedLength m+1)^6 := by
-  have hD : WeightedGlobalPartitionCount.partitionLoss (2380004124000*m) (292746547000*m) ≤ (fixedLength m+1)^3 := by
+  have hD : WeightedGlobalPartitionCount.partitionLoss (2379766416784020*m) (292929977780940*m) ≤ (fixedLength m+1)^3 := by
     unfold WeightedGlobalPartitionCount.partitionLoss fixedLength
-    have h1 : 2*(2380004124000*m)+1 ≤ 30000000000000*m+1 := by omega
-    have h2 : 3*(292746547000*m)+1 ≤ 30000000000000*m+1 := by omega
-    have h3 : 2*(292746547000*m)+1 ≤ 30000000000000*m+1 := by omega
+    have h1 : 2*(2379766416784020*m)+1 ≤ 30000000000000000*m+1 := by omega
+    have h2 : 3*(292929977780940*m)+1 ≤ 30000000000000000*m+1 := by omega
+    have h3 : 2*(292929977780940*m)+1 ≤ 30000000000000000*m+1 := by omega
     simpa only [pow_succ,pow_zero,one_mul] using Nat.mul_le_mul (Nat.mul_le_mul h1 h2) h3
   unfold frequencyFactor
   have h3 : (3 : ℕ)^16 ≤ 2^32 := by norm_num
@@ -86,21 +86,21 @@ theorem frequency_factor_upper (m : ℕ) : frequencyFactor m ≤ 2^42*(fixedLeng
     _ = _ := by rw [mul_pow,← pow_mul]; norm_num; ring
 
 theorem baseFrequency_upper {K : ℕ} (hK : 0 < K) (m : ℕ) :
-    baseFrequency K m ≤ 2^361*(m+1)^7 := by
+    baseFrequency K m ≤ 2^431*(m+1)^7 := by
   have hp2 : nativePrime K m^2 ≤ 2^(8*fixedLength m+4) := by
     have h := Nat.pow_le_pow_left (native_crude_upper hK m) 2
     simpa only [← pow_mul,show (4*fixedLength m+2)*2=8*fixedLength m+4 by omega] using h
   have hl := log2_le_of_le_pow hp2
   have ht : Nat.log2 (nativePrime K m^2)+1 ≤ 16*(fixedLength m+1) := by omega
-  have hL : fixedLength m+1 ≤ 2^45*(m+1) := by unfold fixedLength; norm_num; omega
+  have hL : fixedLength m+1 ≤ 2^55*(m+1) := by unfold fixedLength; norm_num; omega
   calc
     _ ≤ (2^42*(fixedLength m+1)^6)*(16*(fixedLength m+1)) := Nat.mul_le_mul (frequency_factor_upper m) ht
     _ = 2^46*(fixedLength m+1)^7 := by norm_num; ring
-    _ ≤ 2^46*(2^45*(m+1))^7 := Nat.mul_le_mul_left _ (Nat.pow_le_pow_left hL 7)
+    _ ≤ 2^46*(2^55*(m+1))^7 := Nat.mul_le_mul_left _ (Nat.pow_le_pow_left hL 7)
     _ = _ := by rw [mul_pow,← pow_mul,← mul_assoc,← pow_add]
 
 def rateUpper (k c d m : ℕ) : ℝ :=
-  (Real.log (max 1 c : ℝ)+(361+45*(d : ℝ))*Real.log 2+
+  (Real.log (max 1 c : ℝ)+(431+55*(d : ℝ))*Real.log 2+
     (d+7 : ℕ)*Real.log (m+1 : ℝ))/((fixedLength m : ℝ)*Real.log 2)+
   20/(k : ℝ)+(8*(k : ℝ)^2+26+k)*Real.log 2/((k : ℝ)*((fixedLength m : ℝ)*Real.log 2))
 
@@ -113,17 +113,17 @@ theorem baseFactor_pos (K k c d m : ℕ) : 0 < baseFactor K k c d m := by
 
 theorem baseFactor_rate_bound {K k m : ℕ} (hK : 0 < K) (hk : 0 < k) (hm : 0 < m) (c d : ℕ) :
     Real.log (baseFactor K k c d m : ℝ)/((fixedLength m : ℝ)*Real.log 2) ≤ rateUpper k c d m := by
-  have hL : fixedLength m+1 ≤ 2^45*(m+1) := by unfold fixedLength; norm_num; omega
+  have hL : fixedLength m+1 ≤ 2^55*(m+1) := by unfold fixedLength; norm_num; omega
   have hp := Nat.mul_le_mul (Nat.mul_le_mul_left (max 1 c) (Nat.pow_le_pow_left hL d)) (baseFrequency_upper hK m)
   have hpoly : (max 1 c)*(fixedLength m+1)^d*baseFrequency K m ≤
-      (max 1 c)*2^(361+45*d)*(m+1)^(d+7) := by
+      (max 1 c)*2^(431+55*d)*(m+1)^(d+7) := by
     convert hp using 1 <;> rw [mul_pow,← pow_mul,pow_add] <;> ring
   have hbound := Nat.mul_le_mul_right (rawThreshold (nativePrime K m) (sourceCap m (nativePrime K m)) k) hpoly
   have hpos : 0 < (baseFactor K k c d m : ℝ) := by exact_mod_cast baseFactor_pos K k c d m
-  have hboundN : baseFactor K k c d m ≤ (max 1 c)*2^(361+45*d)*(m+1)^(d+7)*
+  have hboundN : baseFactor K k c d m ≤ (max 1 c)*2^(431+55*d)*(m+1)^(d+7)*
       rawThreshold (nativePrime K m) (sourceCap m (nativePrime K m)) k := hbound
   have hboundR : (baseFactor K k c d m : ℝ) ≤
-      (((max 1 c)*2^(361+45*d)*(m+1)^(d+7)*
+      (((max 1 c)*2^(431+55*d)*(m+1)^(d+7)*
         rawThreshold (nativePrime K m) (sourceCap m (nativePrime K m)) k : ℕ) : ℝ) := by exact_mod_cast hboundN
   have hlog := Real.log_le_log hpos hboundR
   have hc : (0 : ℝ) < max 1 c := by exact_mod_cast lt_of_lt_of_le (by decide : 0 < (1 : ℕ)) (le_max_left 1 c)
@@ -158,9 +158,9 @@ theorem baseFactor_rate_bound {K k m : ℕ} (hK : 0 < K) (hk : 0 < k) (hm : 0 < 
 theorem rateUpper_tendsto {k : ℕ} (hk : 0 < k) (c d : ℕ) :
     Tendsto (rateUpper k c d) atTop (𝓝 (20/(k : ℝ))) := by
   have hconst := denominator_atTop.const_div_atTop
-    (Real.log (max 1 c : ℝ)+(361+45*(d : ℝ))*Real.log 2)
+    (Real.log (max 1 c : ℝ)+(431+55*(d : ℝ))*Real.log 2)
   have hlog := (BinomialEntropy.logarithmic_error_tendsto_zero (by decide : 0 < (1 : ℕ))).div_const
-    (30000000000000*Real.log 2)
+    (30000000000000000*Real.log 2)
   have hlog' : Tendsto (fun m : ℕ => Real.log (m+1 : ℝ)/((fixedLength m : ℝ)*Real.log 2)) atTop (𝓝 0) := by
     convert hlog using 1
     · funext m
@@ -183,7 +183,7 @@ theorem overhead_charge_tendsto {k : ℕ} (hk : 0 < k) (c d : ℕ) :
   · rfl
   · ring
 
-def selectedMoment (K : ℕ) : ℕ := 30000000000000*K^2
+def selectedMoment (K : ℕ) : ℕ := 30000000000000000*K^2
 def microAllowance (K : ℕ) : ℝ := 1/(100*(K : ℝ)^2)
 
 theorem selectedMoment_pos {K : ℕ} (hK : 0 < K) : 0 < selectedMoment K := by
@@ -264,7 +264,7 @@ theorem final_margin {K : ℕ} (hK : 100000000000000000000 ≤ K) :
     softCertificate+microAllowance K < targetExponent := by
   have hk : (100000000000000000000 : ℝ) ≤ K := by exact_mod_cast hK
   have hp : (0 : ℝ) < K := by linarith
-  have hδ : microAllowance K < (1/1250000000 : ℝ) := by
+  have hδ : microAllowance K < (1/50000000000000 : ℝ) := by
     unfold microAllowance
     apply (div_lt_iff₀ (by positivity)).mpr
     nlinarith

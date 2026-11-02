@@ -251,7 +251,7 @@ def volumeConstant (K k c d m : ℕ) : ℝ :=
     (Real.exp (WeightedGlobalOversizeDimensions.bankSlope K m)+
       Real.exp (WeightedGlobalOversizeDimensions.tableSlope K m (endpointSize m))+
       Real.exp (WeightedGlobalOversizeDimensions.tableSlope K m (nativePrime K m))+
-      Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/WeightedGlobalParameters.z^1024)
+      Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/WeightedGlobalParameters.z^2739)
 
 /-- The bundle pays source dictionaries, histogram domains, compact bank
 cells, and all literal queries with the full prepared-query envelope. -/
@@ -271,13 +271,13 @@ theorem volume_bundle_bound {K k b m n j : ℕ}
   let CB:=Real.exp (WeightedGlobalOversizeDimensions.bankSlope K m)
   let CA:=Real.exp (WeightedGlobalOversizeDimensions.tableSlope K m (endpointSize m))
   let CP:=Real.exp (WeightedGlobalOversizeDimensions.tableSlope K m (nativePrime K m))
-  let CQ:=Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/WeightedGlobalParameters.z^1024
+  let CQ:=Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/WeightedGlobalParameters.z^2739
   have hnr : (1:ℝ)≤n:=by exact_mod_cast hn.le
   have hn0 : (0:ℝ)<n:=by exact_mod_cast lt_trans Nat.zero_lt_one hn
   have hcb : 0≤CB:=by dsimp [CB]; positivity
   have hca : 0≤CA:=by dsimp [CA]; positivity
   have hcp : 0≤CP:=by dsimp [CP]; positivity
-  have hcq : 0≤CQ:=div_nonneg (Real.exp_pos _).le (pow_pos WeightedGlobalParameters.gibbs_parameters.2.2.1 1024).le
+  have hcq : 0≤CQ:=div_nonneg (Real.exp_pos _).le (pow_pos WeightedGlobalParameters.gibbs_parameters.2.2.1 2739).le
   have hcharges : WeightedGlobalOversizeRates.bankCharge K m≤fullCharge K m ∧
       WeightedGlobalOversizeRates.queryCharge K m≤fullCharge K m ∧
       WeightedGlobalOversizeRates.endpointCharge K m≤fullCharge K m ∧
@@ -341,7 +341,7 @@ theorem full_exponent_lt {K m : ℕ} (hK : 100000000000000000000≤K) (c d : ℕ
         (max_lt hgood.2.2.2.1 (max_lt hgood.2.2.2.2.1 hgood.2.2.2.2.2))))
   have hkr : (100000000000000000000:ℝ)≤K:=by exact_mod_cast hK
   have hkp : (0:ℝ)<K:=by linarith
-  have hmicro : microAllowance K<(1/1250000000:ℝ):=by
+  have hmicro : microAllowance K<(1/50000000000000:ℝ):=by
     unfold microAllowance
     apply (div_lt_iff₀ (by positivity)).mpr
     nlinarith
@@ -509,12 +509,12 @@ theorem wanted_entries_cap {p m F j : ℕ} [Fact p.Prime]
   intro x
   simpa using WeightedGlobalGoodOutputCatalog.localBucket_cap maps τ x
 
-def localFactor (m : ℕ) : ℕ :=17+2*WeightedGlobalPartitionCount.partitionLoss (2380004124000*m) (292746547000*m)
+def localFactor (m : ℕ) : ℕ :=17+2*WeightedGlobalPartitionCount.partitionLoss (2379766416784020*m) (292929977780940*m)
 
 theorem local_factor_polynomial (m : ℕ) : localFactor m≤19*(fixedLength m+1)^3 :=by
-  have h1 : 2*(2380004124000*m)+1≤fixedLength m+1:=by unfold fixedLength; omega
-  have h2 : 3*(292746547000*m)+1≤fixedLength m+1:=by unfold fixedLength; omega
-  have h3 : 2*(292746547000*m)+1≤fixedLength m+1:=by unfold fixedLength; omega
+  have h1 : 2*(2379766416784020*m)+1≤fixedLength m+1:=by unfold fixedLength; omega
+  have h2 : 3*(292929977780940*m)+1≤fixedLength m+1:=by unfold fixedLength; omega
+  have h3 : 2*(292929977780940*m)+1≤fixedLength m+1:=by unfold fixedLength; omega
   have hh:=Nat.mul_le_mul (Nat.mul_le_mul h1 h2) h3
   have hpow : 1≤(fixedLength m+1)^3:=Nat.one_le_pow _ _ (by omega)
   unfold localFactor WeightedGlobalPartitionCount.partitionLoss
@@ -533,7 +533,7 @@ theorem wanted_native_count {K k b m n j F carries : ℕ}
       (carries:ℝ)*(n:ℝ)*((nativePrime K m:ℝ)/(partitionCap m:ℝ))^j*(nativeFactor K k b m:ℝ)^j :=by
   let P:=nativePrime K m
   let τ:=WeightedGlobalCoverCapParameters.rawThreshold P (WeightedGlobalCoverCapParameters.sourceCap m P) k
-  let loss:=WeightedGlobalPartitionCount.partitionLoss (2380004124000*m) (292746547000*m)
+  let loss:=WeightedGlobalPartitionCount.partitionLoss (2379766416784020*m) (292929977780940*m)
   have hτ : 0<τ:=WeightedGlobalCoverCapParameters.rawThreshold_pos _ _ _
   have hcap:=WeightedGlobalGoodOutputCatalog.cap_real_le_native (m:=m) (p:=P) τ hτ
     (nativePrime_base_lower hK m)
@@ -933,7 +933,7 @@ theorem hostConstant_nonneg (K k c d m F D E κ : ℕ) : 0≤hostConstant K k c 
   unfold volumeConstant
   refine mul_nonneg (Nat.cast_nonneg _) ?_
   exact add_nonneg (add_nonneg (add_nonneg (Real.exp_pos _).le (Real.exp_pos _).le) (Real.exp_pos _).le)
-    (div_nonneg (Real.exp_pos _).le (pow_pos WeightedGlobalParameters.gibbs_parameters.2.2.1 1024).le)
+    (div_nonneg (Real.exp_pos _).le (pow_pos WeightedGlobalParameters.gibbs_parameters.2.2.1 2739).le)
 
 /-- Sum of the concrete source/count runtimes at every prefix. All bounds
 are on original lengths, actual word magnitudes, and the literal typed

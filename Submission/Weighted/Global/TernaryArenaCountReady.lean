@@ -165,15 +165,15 @@ theorem ready {lim : Limits} {d : ℕ} (maps : Fin F→Weight m p) (τ cap : ℕ
     have hFend := (grouped_end (base := S.fbase) (N := n) (nb := nb m r) hg).trans hstageF
     have hGend := (grouped_end (base := S.gbase) (N := n) (nb := nb m r) hg).trans hstageG
     have hHend := (grouped_end (base := S.hbase) (N := n) (nb := nb m r) hg).trans hstageH
-    have ha : alphaRank m=3258243765000*m := by
+    have ha : alphaRank m=3258556350126840*m := by
       unfold alphaRank fixedAlpha
-      change 2672750671000*m+2*(292746547000*m)=3258243765000*m
+      change 2672696394564960*m+2*(292929977780940*m)=3258556350126840*m
       ring
-    have hs : 1025*(r*alphaRank m)≤2*cut m r := by
+    have hs : 2740*(r*alphaRank m)≤2*cut m r := by
       rw [ha]
       dsimp [cut,LightWeightedGlobalPrefixSetup.T]
       nlinarith
-    have ht : cut m r≤1025*n := by
+    have ht : cut m r≤2740*n := by
       simpa [cut,n,N,LightWeightedGlobalPrefixSetup.N,fixedLength,Nat.mul_assoc,Nat.mul_comm,Nat.mul_left_comm] using (LightWeightedGlobalPrefixSetup.dimensions m r).2.2
     have hDegree : r*alphaRank m≤2*n := by
       rw [ha]

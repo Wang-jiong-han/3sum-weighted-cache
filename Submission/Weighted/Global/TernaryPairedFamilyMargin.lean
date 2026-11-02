@@ -16,12 +16,12 @@ open scoped Topology
 set_option maxHeartbeats 1000000
 
 def baseRate (m : ℕ) : ℝ :=
-  (Real.log 9+361*Real.log 2+7*Real.log (m+1 : ℝ))/((fixedLength m : ℝ)*Real.log 2)
+  (Real.log 9+431*Real.log 2+7*Real.log (m+1 : ℝ))/((fixedLength m : ℝ)*Real.log 2)
 
 theorem baseRate_tendsto : Tendsto baseRate atTop (𝓝 0) := by
-  have hc := denominator_atTop.const_div_atTop (Real.log 9+361*Real.log 2)
+  have hc := denominator_atTop.const_div_atTop (Real.log 9+431*Real.log 2)
   have hl := (BinomialEntropy.logarithmic_error_tendsto_zero (by decide : 0<(1 : ℕ))).div_const
-    (30000000000000*Real.log 2)
+    (30000000000000000*Real.log 2)
   have hl' : Tendsto (fun m : ℕ => Real.log (m+1 : ℝ)/((fixedLength m : ℝ)*Real.log 2)) atTop (𝓝 0) := by
     convert hl using 1
     · funext m
@@ -42,7 +42,7 @@ theorem family_log_bound {K m : ℕ} (hK : 0<K) (hm : 0<m) (k : ℕ) :
     unfold baseFrequency inflatedFrequency
     ring
   have hb := baseFrequency_upper hK m
-  have hb' : 9*(nativeFamily K m k).length≤9*2^361*(m+1)^7*(inflation K m)^4 := by
+  have hb' : 9*(nativeFamily K m k).length≤9*2^431*(m+1)^7*(inflation K m)^4 := by
     rw [hF]
     nlinarith [Nat.mul_le_mul_left (9*(inflation K m)^4) hb]
   have hp : 0<(nativeFamily K m k).length := by
@@ -51,11 +51,11 @@ theorem family_log_bound {K m : ℕ} (hK : 0<K) (hm : 0<m) (k : ℕ) :
       (pow_pos (inflation_pos hK m) 4)) (Nat.succ_pos _)
   have hlog := Real.log_le_log (by exact_mod_cast (by omega : 0<9*(nativeFamily K m k).length))
     (show (9*(nativeFamily K m k).length : ℝ)≤
-      (9 : ℝ)*2^361*(m+1 : ℝ)^7*(inflation K m : ℝ)^4 by exact_mod_cast hb')
+      (9 : ℝ)*2^431*(m+1 : ℝ)^7*(inflation K m : ℝ)^4 by exact_mod_cast hb')
   have hmR : (0 : ℝ)<(m : ℝ)+1 := by positivity
   have hsR : (0 : ℝ) < (inflation K m : ℝ) := by exact_mod_cast inflation_pos hK m
-  have hexpr : Real.log ((9 : ℝ)*2^361*(m+1 : ℝ)^7*(inflation K m : ℝ)^4)=
-      Real.log 9+361*Real.log 2+7*Real.log (m+1 : ℝ)+4*Real.log (inflation K m : ℝ) := by
+  have hexpr : Real.log ((9 : ℝ)*2^431*(m+1 : ℝ)^7*(inflation K m : ℝ)^4)=
+      Real.log 9+431*Real.log 2+7*Real.log (m+1 : ℝ)+4*Real.log (inflation K m : ℝ) := by
     rw [Real.log_mul (by positivity) (pow_ne_zero _ hsR.ne'),
       Real.log_mul (by positivity) (pow_ne_zero _ hmR.ne'),
       Real.log_mul (by norm_num) (by norm_num)]
@@ -64,7 +64,7 @@ theorem family_log_bound {K m : ℕ} (hK : 0<K) (hm : 0<m) (k : ℕ) :
   rw [hexpr] at hlog
   apply (div_le_iff₀ (denominator_pos hm)).mpr
   have he : (baseRate m+4*inflationRate K m)*((fixedLength m : ℝ)*Real.log 2)=
-      Real.log 9+361*Real.log 2+7*Real.log (m+1 : ℝ)+4*Real.log (inflation K m : ℝ) := by
+      Real.log 9+431*Real.log 2+7*Real.log (m+1 : ℝ)+4*Real.log (inflation K m : ℝ) := by
     unfold baseRate inflationRate
     have hLen : (fixedLength m : ℝ)≠0 := by
       have hh : 0 < fixedLength m := by unfold fixedLength; omega

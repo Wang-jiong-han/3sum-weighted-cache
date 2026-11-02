@@ -20,7 +20,7 @@ set_option maxRecDepth 16000
 
 
 def envelope (m j : ℕ) : ℝ :=
-  Real.exp ((fixedLength (j*m) : ℝ)*Real.log 2*queryEntropy)/z^1024
+  Real.exp ((fixedLength (j*m) : ℝ)*Real.log 2*queryEntropy)/z^2739
 
 theorem envelope_eq_new (m j : ℕ) : envelope m j=WeightedQueryBudget.envelope (j*m) := by
   have he : (fixedLength (j*m) : ℝ)*Real.log 2*queryEntropy=
@@ -81,7 +81,7 @@ theorem envelope_ge_one (m j : ℕ) : 1≤envelope m j := by
   have hq : 0≤queryEntropy := analytic_admissibility.2.1.le
   have hE : 1≤Real.exp ((fixedLength (j*m) : ℝ)*Real.log 2*queryEntropy) :=
     Real.one_le_exp_iff.mpr (mul_nonneg (mul_nonneg (Nat.cast_nonneg _) log_two_pos.le) hq)
-  have hp : z^1024≤1 := pow_le_one₀ hz.le gibbs_parameters.2.2.2.le
+  have hp : z^2739≤1 := pow_le_one₀ hz.le gibbs_parameters.2.2.2.le
   unfold envelope
   exact (one_le_div (pow_pos hz _)).mpr (hp.trans hE)
 
@@ -89,7 +89,7 @@ theorem envelope_ge_one (m j : ℕ) : 1≤envelope m j := by
 theorem actual_query_envelope_volume {K m n j : ℕ} (hK : 0<K) (hm : 0<m) (hn : 1<n)
     (hj : j≤radixLength m n) :
     (n : ℝ)*((nativePrime K m : ℝ)/partitionCap m)^j*(inflation K m : ℝ)^(4*j)*envelope m j≤
-      (Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/z^1024)*(n : ℝ)^WeightedGlobalOversizeRates.queryCharge K m := by
+      (Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/z^2739)*(n : ℝ)^WeightedGlobalOversizeRates.queryCharge K m := by
   have hM : 1<outputSize m := by have := outputSize_ge_sixteen hm; omega
   have hp : 0<(nativePrime K m : ℝ) := by exact_mod_cast (nativePrime_prime K m).pos
   have hR : 0<(partitionCap m : ℝ) := by unfold partitionCap; positivity
@@ -112,11 +112,11 @@ theorem actual_query_envelope_volume {K m n j : ℕ} (hK : 0<K) (hm : 0<m) (hn :
     nlinarith
   have hb := prefix_dimension_bound hM hn hj (query_slope_nonneg hK hm) hX hlog
   calc
-    _=((n : ℝ)/z^1024)*(((nativePrime K m : ℝ)/partitionCap m)^j*(inflation K m : ℝ)^(4*j)*
+    _=((n : ℝ)/z^2739)*(((nativePrime K m : ℝ)/partitionCap m)^j*(inflation K m : ℝ)^(4*j)*
       Real.exp ((fixedLength (j*m) : ℝ)*Real.log 2*queryEntropy)) := by unfold envelope; ring
-    _≤((n : ℝ)/z^1024)*(Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)*
+    _≤((n : ℝ)/z^2739)*(Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)*
       (n : ℝ)^(2*WeightedGlobalOversizeDimensions.querySlope K m/Real.log (outputSize m : ℝ))) :=
-      mul_le_mul_of_nonneg_left hb (div_pos hnR (pow_pos hz 1024)).le
+      mul_le_mul_of_nonneg_left hb (div_pos hnR (pow_pos hz 2739)).le
     _=_ := by rw [←WeightedGlobalOversizeDimensions.query_charge_eq hm,Real.rpow_add hnR,Real.rpow_one]; ring
 
 private theorem nat_sup_cast_le {α : Type*} (s : Finset α) (f : α→ℕ) (C : ℝ)
@@ -214,7 +214,7 @@ def principalExponent (K k c d m : ℕ) : ℝ :=
 
 def dimensionConstant (K k c d m : ℕ) : ℝ :=
   1000000*(baseFactor K k c d m : ℝ)*
-    (Real.exp (WeightedGlobalOversizeDimensions.bankSlope K m)+Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/z^1024)
+    (Real.exp (WeightedGlobalOversizeDimensions.bankSlope K m)+Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/z^2739)
 
 theorem dimensionConstant_nonneg (K k c d m : ℕ) : 0≤dimensionConstant K k c d m := by
   have hz := gibbs_parameters.2.2.1
@@ -257,13 +257,13 @@ theorem physical_prefix_bound {K k m n j groups count b : ℕ}
   have hbVol := WeightedGlobalOversizeDimensions.actual_bank_volume hK hm hn hj
   have hqVol := actual_query_envelope_volume hK hm hn hj
   have hvol : S*((bankSize m j : ℝ)+X*envelope m j)≤
-      (Real.exp (WeightedGlobalOversizeDimensions.bankSlope K m)+Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/z^1024)*
+      (Real.exp (WeightedGlobalOversizeDimensions.bankSlope K m)+Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/z^2739)*
         (n : ℝ)^max (WeightedGlobalOversizeRates.bankCharge K m) (WeightedGlobalOversizeRates.queryCharge K m) := by
     have hnr : (1 : ℝ)≤n := by exact_mod_cast hn.le
     have h1 := Real.rpow_le_rpow_of_exponent_le hnr (le_max_left (WeightedGlobalOversizeRates.bankCharge K m) (WeightedGlobalOversizeRates.queryCharge K m))
     have h2 := Real.rpow_le_rpow_of_exponent_le hnr (le_max_right (WeightedGlobalOversizeRates.bankCharge K m) (WeightedGlobalOversizeRates.queryCharge K m))
     have hB' := hbVol.trans (mul_le_mul_of_nonneg_left h1 (Real.exp_pos _).le)
-    have hQ' := hqVol.trans (mul_le_mul_of_nonneg_left h2 (div_pos (Real.exp_pos _) (pow_pos gibbs_parameters.2.2.1 1024)).le)
+    have hQ' := hqVol.trans (mul_le_mul_of_nonneg_left h2 (div_pos (Real.exp_pos _) (pow_pos gibbs_parameters.2.2.1 2739)).le)
     dsimp [S,X] at *
     nlinarith only [hB',hQ']
   have hbase := base_factor_prefix_bound hK hk hm hn hj c d
@@ -271,7 +271,7 @@ theorem physical_prefix_bound {K k m n j groups count b : ℕ}
   have hmain := mul_le_mul_of_nonneg_left hvol (by positivity : 0≤1000000*(width (fixedLength (j*m)) f g : ℝ)^3*B)
   have hbase' := mul_le_mul_of_nonneg_right hbase
     (by have hz := gibbs_parameters.2.2.1; positivity : 0≤1000000*(width (fixedLength (j*m)) f g : ℝ)^3*
-      (Real.exp (WeightedGlobalOversizeDimensions.bankSlope K m)+Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/z^1024)*
+      (Real.exp (WeightedGlobalOversizeDimensions.bankSlope K m)+Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/z^2739)*
       (n : ℝ)^max (WeightedGlobalOversizeRates.bankCharge K m) (WeightedGlobalOversizeRates.queryCharge K m))
   have hnR : 0<(n : ℝ) := by exact_mod_cast lt_trans Nat.zero_lt_one hn
   have heq : (n : ℝ)^overheadCharge k c d m*(n : ℝ)^max (WeightedGlobalOversizeRates.bankCharge K m) (WeightedGlobalOversizeRates.queryCharge K m)=
@@ -282,10 +282,10 @@ theorem physical_prefix_bound {K k m n j groups count b : ℕ}
     _=1000000*(width (fixedLength (j*m)) f g : ℝ)^3*B*
       (S*((bankSize m j : ℝ)+X*envelope m j)) := by ring
     _≤1000000*(width (fixedLength (j*m)) f g : ℝ)^3*B*
-      ((Real.exp (WeightedGlobalOversizeDimensions.bankSlope K m)+Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/z^1024)*
+      ((Real.exp (WeightedGlobalOversizeDimensions.bankSlope K m)+Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/z^2739)*
         (n : ℝ)^max (WeightedGlobalOversizeRates.bankCharge K m) (WeightedGlobalOversizeRates.queryCharge K m)) := hmain
     _=B*(1000000*(width (fixedLength (j*m)) f g : ℝ)^3*
-      (Real.exp (WeightedGlobalOversizeDimensions.bankSlope K m)+Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/z^1024)*
+      (Real.exp (WeightedGlobalOversizeDimensions.bankSlope K m)+Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/z^2739)*
         (n : ℝ)^max (WeightedGlobalOversizeRates.bankCharge K m) (WeightedGlobalOversizeRates.queryCharge K m)) := by ring
     _≤_ := hbase'
     _=dimensionConstant K k c d m*(width (fixedLength (j*m)) f g : ℝ)^3*
@@ -293,10 +293,10 @@ theorem physical_prefix_bound {K k m n j groups count b : ℕ}
       unfold dimensionConstant
       rw [show (baseFactor K k c d m : ℝ)*(n : ℝ)^overheadCharge k c d m*
         (1000000*(width (fixedLength (j*m)) f g : ℝ)^3*
-          (Real.exp (WeightedGlobalOversizeDimensions.bankSlope K m)+Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/z^1024)*
+          (Real.exp (WeightedGlobalOversizeDimensions.bankSlope K m)+Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/z^2739)*
           (n : ℝ)^max (WeightedGlobalOversizeRates.bankCharge K m) (WeightedGlobalOversizeRates.queryCharge K m))=
         (1000000*(baseFactor K k c d m : ℝ)*
-          (Real.exp (WeightedGlobalOversizeDimensions.bankSlope K m)+Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/z^1024)*
+          (Real.exp (WeightedGlobalOversizeDimensions.bankSlope K m)+Real.exp (WeightedGlobalOversizeDimensions.querySlope K m)/z^2739)*
           (width (fixedLength (j*m)) f g : ℝ)^3)*
           ((n : ℝ)^overheadCharge k c d m*(n : ℝ)^max (WeightedGlobalOversizeRates.bankCharge K m) (WeightedGlobalOversizeRates.queryCharge K m)) by ring,
         heq]
@@ -379,9 +379,9 @@ theorem all_prefix_time_bound {K k m b C A degree : ℕ}
   change _≤((A : ℝ)*D*(C : ℝ)^3)*R^(degree+4)*E
   exact htotal.trans_eq (by rw [pow_add]; ring)
 
-def frontendExponent : ℝ :=2400349269/1250000000
+def frontendExponent : ℝ :=24003492602311/12500000000000
 
-theorem frontend_margin : targetExponent-frontendExponent=(3/625000000 : ℝ) := by
+theorem frontend_margin : targetExponent-frontendExponent=(3/25000000000000 : ℝ) := by
   norm_num [targetExponent,frontendExponent]
 
 theorem principal_exponent_lt {K m : ℕ} (hK : 100000000000000000000≤K) (c d : ℕ)
@@ -392,7 +392,7 @@ theorem principal_exponent_lt {K m : ℕ} (hK : 100000000000000000000≤K) (c d 
     max_lt hgood.2.1 hgood.2.2.1
   have hkr : (100000000000000000000 : ℝ)≤K := by exact_mod_cast hK
   have hkp : (0 : ℝ)<K := by linarith
-  have hmicro : microAllowance K<(1/1250000000 : ℝ) := by
+  have hmicro : microAllowance K<(1/50000000000000 : ℝ) := by
     unfold microAllowance
     apply (div_lt_iff₀ (by positivity)).mpr
     nlinarith

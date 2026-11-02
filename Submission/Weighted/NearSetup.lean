@@ -1,7 +1,7 @@
 /-
 Adapted from c0ldzy17/Joshua Wharton, proof-factory/3sum-bound,
 commit 8af82141280754b0c46d3dacb926426265da6f99. Apache-2.0.
-Local change: cache digit costs (0,512,1025); ordinary algebraic rank unchanged.
+Local change: cache digit costs (0,1369,2740); ordinary algebraic rank unchanged.
 -/
 import Submission.Weighted.NearDigits
 import Submission.Weighted.LightNearEnumerationMain
@@ -37,8 +37,8 @@ theorem meets {pMain pPowers pDigits pDigit pErase pEnum pBranch N D dst powers 
     (μ : ℕ → ℤ) (Q : TritWord N)
     (hw : (lim.space : ℤ)≤lim.word) (hspace : powers+(2*N+1)≤lim.space)
     (hword : ((4^(N+1) : ℕ) : ℤ)≤lim.word)
-    (hcontrol : ((1025*N+1100 : ℕ) : ℤ)≤lim.word)
-    (hD : D≤1025*N)
+    (hcontrol : ((2740*N+3000 : ℕ) : ℤ)≤lim.word)
+    (hD : D≤2740*N)
     (hdst : dst+(WeightedNearEnumeration.codes (wordList Q) D).length≤caps)
     (hcaps : caps+N≤active) (hactive : active+N≤powers)
     (hd : d+2*N+3≤lim.depth) :

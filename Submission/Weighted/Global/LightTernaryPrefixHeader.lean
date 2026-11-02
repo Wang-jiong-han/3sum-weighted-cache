@@ -81,7 +81,7 @@ def args (template live hdr s m p power alpha2 alphaRank localQ radix J : ℕ) :
 
 def locals (N T L groups nb bank powers s p power alpha2 alphaRank localQ radix Fbase Gbase : ℕ) : List ℤ :=
   [N,T,L,groups,nb,bank,powers,power*p,alpha2*s,2^(alpha2*s),alphaRank*s,
-    (N+1)*nb,N*nb,(1024*(alphaRank*s)+3*(alpha2*s)),(((1024*(alphaRank*s)+3*(alpha2*s))-T-1:ℕ):ℤ),
+    (N+1)*nb,N*nb,(2738*(alphaRank*s)+6*(alpha2*s)),(((2738*(alphaRank*s)+6*(alpha2*s))-T-1:ℕ):ℤ),
     LightTernaryRepeatWord.value localQ radix s,Fbase+N*nb,Gbase+N*nb]
 
 def time (s alpha2 : ℕ) : ℕ := LightNatPower.time (alpha2*s)+LightTernaryRepeatWord.time s+5000
@@ -99,7 +99,7 @@ theorem meets {lim : Limits} {P : Program}
     (hhdr : hdr+8≤lim.space) (hd : d<lim.depth)
     (hread : Seg μ hdr [N,T,L,groups,nb,bank,powers,s])
     (hF : μ (template+99)=(Fbase:ℤ)) (hG : μ (template+100)=(Gbase:ℤ))
-    (hD : T+1024≤(1024*(alphaRank*s)+3*(alpha2*s))) (hN1 : (N:ℤ)+1≤lim.word)
+    (hD : T+2739≤(2738*(alphaRank*s)+6*(alpha2*s))) (hN1 : (N:ℤ)+1≤lim.word)
     (hfits : ∀x∈(args template live hdr s m p power alpha2 alphaRank localQ radix J++
       locals N T L groups nb bank powers s p power alpha2 alphaRank localQ radix Fbase Gbase),
       |x|≤lim.word)
@@ -129,27 +129,27 @@ theorem meets {lim : Limits} {P : Program}
   have hwrank : ((alphaRank*s:ℕ):ℤ)≤lim.word := (le_abs_self _).trans (hbound ((alphaRank*s:ℕ):ℤ) (by simp [args,locals]))
   have hwstride : (((N+1)*nb:ℕ):ℤ)≤lim.word := (le_abs_self _).trans (hbound (((N+1)*nb:ℕ):ℤ) (by simp [args,locals]))
   have hwtail : ((N*nb:ℕ):ℤ)≤lim.word := (le_abs_self _).trans (hbound ((N*nb:ℕ):ℤ) (by simp [args,locals]))
-  have hwqrank : (((1024*(alphaRank*s)+3*(alpha2*s)):ℕ):ℤ)≤lim.word := (le_abs_self _).trans (hbound (((1024*(alphaRank*s)+3*(alpha2*s)):ℕ):ℤ) (by simp [args,locals]))
-  have hwD : (((1024*(alphaRank*s)+3*(alpha2*s))-T-1:ℕ):ℤ)≤lim.word := (le_abs_self _).trans (hbound (((1024*(alphaRank*s)+3*(alpha2*s))-T-1:ℕ):ℤ) (by simp [args,locals]))
+  have hwqrank : (((2738*(alphaRank*s)+6*(alpha2*s)):ℕ):ℤ)≤lim.word := (le_abs_self _).trans (hbound (((2738*(alphaRank*s)+6*(alpha2*s)):ℕ):ℤ) (by simp [args,locals]))
+  have hwD : (((2738*(alphaRank*s)+6*(alpha2*s))-T-1:ℕ):ℤ)≤lim.word := (le_abs_self _).trans (hbound (((2738*(alphaRank*s)+6*(alpha2*s))-T-1:ℕ):ℤ) (by simp [args,locals]))
   have hwQ : ((LightTernaryRepeatWord.value localQ radix s:ℕ):ℤ)≤lim.word := (le_abs_self _).trans (hbound ((LightTernaryRepeatWord.value localQ radix s:ℕ):ℤ) (by simp [args,locals]))
   have hwFbv : ((Fbase+N*nb:ℕ):ℤ)≤lim.word := (le_abs_self _).trans (hbound ((Fbase+N*nb:ℕ):ℤ) (by simp [args,locals]))
   have hwGbv : ((Gbase+N*nb:ℕ):ℤ)≤lim.word := (le_abs_self _).trans (hbound ((Gbase+N*nb:ℕ):ℤ) (by simp [args,locals]))
   have hS : (s:ℤ)≤lim.word :=(le_abs_self _).trans (hbound s (by simp [args]))
   have hQlocal : (localQ:ℤ)≤lim.word :=(le_abs_self _).trans (hbound localQ (by simp [args]))
   have hRadix : (radix:ℤ)≤lim.word :=(le_abs_self _).trans (hbound radix (by simp [args]))
-  have h2 : (1024:ℤ)≤lim.word := by
-    have hc : 1024≤(1024*(alphaRank*s)+3*(alpha2*s)) := by omega
+  have h2 : (2739:ℤ)≤lim.word := by
+    have hc : 2739≤(2738*(alphaRank*s)+6*(alpha2*s)) := by omega
     exact (Int.ofNat_le.mpr hc).trans hwqrank
   have hProd0 : (0:ℤ)≤(power:ℤ)*(p:ℤ) :=by positivity
   have hExp0 : (0:ℤ)≤(alpha2:ℤ)*(s:ℤ) :=by positivity
   have hRank0 : (0:ℤ)≤(alphaRank:ℤ)*(s:ℤ) :=by positivity
   have hStride0 : (0:ℤ)≤((N:ℤ)+1)*(nb:ℤ) :=by positivity
   have hTail0 : (0:ℤ)≤(N:ℤ)*(nb:ℤ) :=by positivity
-  have hQrank0 : (0:ℤ)≤(1024*((alphaRank:ℤ)*(s:ℤ))+3*((alpha2:ℤ)*(s:ℤ))) :=by positivity
-  have hDsub : ((1024*(alphaRank*s)+3*(alpha2*s))-T-1:ℕ) = (1024*(alphaRank*s)+3*(alpha2*s))-T-1 :=rfl
-  have hDcast : (((1024*(alphaRank*s)+3*(alpha2*s))-T-1:ℕ):ℤ)=(1024*((alphaRank:ℤ)*(s:ℤ))+3*((alpha2:ℤ)*(s:ℤ)))-(T:ℤ)-1 :=by omega
-  have hD0 : (0:ℤ)≤(1024*((alphaRank:ℤ)*(s:ℤ))+3*((alpha2:ℤ)*(s:ℤ)))-(T:ℤ)-1 :=by nlinarith [Int.natCast_nonneg ((1024*(alphaRank*s)+3*(alpha2*s))-T-1)]
-  have hDfirst : (1024*((alphaRank:ℤ)*(s:ℤ))+3*((alpha2:ℤ)*(s:ℤ)))-(T:ℤ)≤lim.word :=by
+  have hQrank0 : (0:ℤ)≤(2738*((alphaRank:ℤ)*(s:ℤ))+6*((alpha2:ℤ)*(s:ℤ))) :=by positivity
+  have hDsub : ((2738*(alphaRank*s)+6*(alpha2*s))-T-1:ℕ) = (2738*(alphaRank*s)+6*(alpha2*s))-T-1 :=rfl
+  have hDcast : (((2738*(alphaRank*s)+6*(alpha2*s))-T-1:ℕ):ℤ)=(2738*((alphaRank:ℤ)*(s:ℤ))+6*((alpha2:ℤ)*(s:ℤ)))-(T:ℤ)-1 :=by omega
+  have hD0 : (0:ℤ)≤(2738*((alphaRank:ℤ)*(s:ℤ))+6*((alpha2:ℤ)*(s:ℤ)))-(T:ℤ)-1 :=by nlinarith [Int.natCast_nonneg ((2738*(alphaRank*s)+6*(alpha2*s))-T-1)]
+  have hDfirst : (2738*((alphaRank:ℤ)*(s:ℤ))+6*((alpha2:ℤ)*(s:ℤ)))-(T:ℤ)≤lim.word :=by
     have hz : (0:ℤ)≤(T:ℤ) :=by positivity
     try simp only [Nat.cast_mul,Nat.cast_ofNat] at hwqrank
     omega
@@ -191,8 +191,8 @@ theorem meets {lim : Limits} {P : Program}
   light_set (alphaRank*s:ℕ) using args,hrN,hrT,hrL,hrgroups,hrnb,hrbank,hrpowers,ha0,ha1,ha2,ha3,ha4,ha5,ha6,LightNatPower.time,LightTernaryRepeatWord.time
   light_set ((N+1)*nb:ℕ) using args,hrN,hrT,hrL,hrgroups,hrnb,hrbank,hrpowers,ha0,ha1,ha2,ha3,ha4,ha5,ha6,LightNatPower.time,LightTernaryRepeatWord.time
   light_set (N*nb:ℕ) using args,hrN,hrT,hrL,hrgroups,hrnb,hrbank,hrpowers,ha0,ha1,ha2,ha3,ha4,ha5,ha6,LightNatPower.time,LightTernaryRepeatWord.time
-  light_set ((1024*(alphaRank*s)+3*(alpha2*s)):ℕ) using args,hrN,hrT,hrL,hrgroups,hrnb,hrbank,hrpowers,ha0,ha1,ha2,ha3,ha4,ha5,ha6,LightNatPower.time,LightTernaryRepeatWord.time
-  light_set ((1024*(alphaRank*s)+3*(alpha2*s))-T-1:ℕ) using args,hrN,hrT,hrL,hrgroups,hrnb,hrbank,hrpowers,ha0,ha1,ha2,ha3,ha4,ha5,ha6,hDcast,LightNatPower.time,LightTernaryRepeatWord.time
+  light_set ((2738*(alphaRank*s)+6*(alpha2*s)):ℕ) using args,hrN,hrT,hrL,hrgroups,hrnb,hrbank,hrpowers,ha0,ha1,ha2,ha3,ha4,ha5,ha6,LightNatPower.time,LightTernaryRepeatWord.time
+  light_set ((2738*(alphaRank*s)+6*(alpha2*s))-T-1:ℕ) using args,hrN,hrT,hrL,hrgroups,hrnb,hrbank,hrpowers,ha0,ha1,ha2,ha3,ha4,ha5,ha6,hDcast,LightNatPower.time,LightTernaryRepeatWord.time
   light_call (LightTernaryRepeatWord.meets (d:=d+1) hrepeat μ₀ hQlocal hRadix hS hquery)
     using args,hrN,hrT,hrL,hrgroups,hrnb,hrbank,hrpowers,ha0,ha1,ha2,ha3,ha4,ha5,ha6,LightNatPower.time,LightTernaryRepeatWord.time with query μ₂ ⟨hqueryResult,hμ₂⟩
   subst μ₂

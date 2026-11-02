@@ -8,8 +8,8 @@ noncomputable section
 namespace ThreeSum.WeightedGlobalDimensionBounds
 open TernaryJointType WeightedGlobalLocalParameters WeightedGlobalBank WeightedGlobalParameters
 
-def bankCut (m j : ℕ) : ℕ := 3130753934820264*j*m
-def queryDeficit (m j : ℕ) : ℕ := 206565920180736*j*m+1024
+def bankCut (m j : ℕ) : ℕ := 8371360984307726883*j*m
+def queryDeficit (m j : ℕ) : ℕ := 552323882206246677*j*m+2739
 def bankSize (m j : ℕ) : ℕ := (bank (fixedLength (j*m)) (bankCut m j)).card
 
 theorem cut_schedule (m j : ℕ) : bankCut m j=WeightedSchedule.bankCut (j*m) := by
@@ -28,16 +28,16 @@ theorem near_pos {N : ℕ} (Q : TritWord N) (D : ℕ) : 0<(nearWords Q D).card :
 
 theorem rank_eq_counts {N : ℕ} (Q : TritWord N) : rank Q=digitCount Q 1+2*digitCount Q 2 :=
   WeightedSchedule.rank_counts Q
-theorem cost_eq_counts {N : ℕ} (Q : TritWord N) : cacheCost Q=512*digitCount Q 1+1025*digitCount Q 2 :=
+theorem cost_eq_counts {N : ℕ} (Q : TritWord N) : cacheCost Q=1369*digitCount Q 1+2740*digitCount Q 2 :=
   WeightedSchedule.cacheCost_counts Q
 
 theorem output_rank {m j : ℕ} {Q : TritWord (fixedLength (j*m))}
-    (hQ : HasType Q (fixedPi (j*m))) : rank Q=6516487530000*j*m := by
+    (hQ : HasType Q (fixedPi (j*m))) : rank Q=6517112700253680*j*m := by
   rw [rank_eq_counts,hQ 1,hQ 2]
   simp [fixedPi]; ring
 
 theorem query_boundary {m j : ℕ} {Q : TritWord (fixedLength (j*m))}
-    (hQ : HasType Q (fixedPi (j*m))) : cacheCost Q+1024-bankCut m j=queryDeficit m j := by
+    (hQ : HasType Q (fixedPi (j*m))) : cacheCost Q+2739-bankCut m j=queryDeficit m j := by
   rw [cut_schedule,deficit_schedule]
   exact WeightedSchedule.query_boundary hQ
 
@@ -68,7 +68,7 @@ theorem bank_log_bound (m j : ℕ) : Real.log (bankSize m j : ℝ)≤
 theorem query_log_bound {m j : ℕ} (Q : TritWord (fixedLength (j*m)))
     (hQ : HasType Q (fixedPi (j*m))) :
     Real.log ((nearWords Q (queryDeficit m j)).card : ℝ)≤
-      (fixedLength (j*m) : ℝ)*Real.log 2*queryEntropy-1024*Real.log z := by
+      (fixedLength (j*m) : ℝ)*Real.log 2*queryEntropy-2739*Real.log z := by
   have hc : 0<((nearWords Q (queryDeficit m j)).card : ℝ) := by exact_mod_cast near_pos Q _
   have hg := WeightedQueryBudget.near_card_bound (m := j*m) Q hQ
   have hg' : ((nearWords Q (queryDeficit m j)).card : ℝ)≤WeightedQueryBudget.envelope (j*m) := by

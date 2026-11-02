@@ -1,0 +1,12 @@
+Race.bound : EndStatement.ThreeSum.SolvedInTime (384055881637 / 200000000000)
+Race.cache_optimum_interval :
+  96013970409 / 50000000000 ≤ CacheOptimality.optimum ∧ CacheOptimality.optimum < 2400349260231 / 1250000000000
+Race.cache_optimization_limit (M : CacheOptimality.Model) {u v : ℝ} (hu : 0 ≤ u) (hv : 0 ≤ v) (hH : 0 < M.H) :
+  96013970409 / 50000000000 ≤ M.score u v
+Race.remaining_exponent_gain :
+  0 < 384055881637 / 200000000000 - CacheOptimality.optimum ∧
+    384055881637 / 200000000000 - CacheOptimality.optimum ≤ 1 / 200000000000
+'Race.bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Race.cache_optimum_interval' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Race.cache_optimization_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Race.remaining_exponent_gain' depends on axioms: [propext, Classical.choice, Quot.sound]

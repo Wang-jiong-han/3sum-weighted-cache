@@ -22,7 +22,7 @@ def nativeRate (K m : ℕ) : ℝ := Real.log (nativePrime K m : ℝ)/((fixedLeng
 theorem denominator_atTop :
     Tendsto (fun m : ℕ => (fixedLength m : ℝ)*Real.log 2) atTop atTop := by
   have h := (tendsto_natCast_atTop_atTop (R := ℝ)).const_mul_atTop
-    (mul_pos (by norm_num : (0 : ℝ) < 30000000000000) log_two_pos)
+    (mul_pos (by norm_num : (0 : ℝ) < 30000000000000000) log_two_pos)
   convert h using 1
   funext m
   simp only [fixedLength,Nat.cast_mul]
@@ -157,7 +157,7 @@ theorem incidence_charge_tendsto {K : ℕ} (hK : 0 < K) :
   · rfl
   · field_simp [Hpi_pos.ne'] <;> ring
 
-def softCertificate : ℝ := 2400349267/1250000000
+def softCertificate : ℝ := 48006985204621/25000000000000
 def GoodBlock (K m : ℕ) : Prop := 0 < m ∧ bankCharge K m<softCertificate ∧
   queryCharge K m<softCertificate ∧ endpointCharge K m<softCertificate ∧
   histogramCharge K m<softCertificate ∧ incidenceCharge K m<softCertificate
@@ -167,10 +167,10 @@ theorem goodBlock_eventually {K : ℕ} (hK : 100000000000000000000 ≤ K) :
   have hk : 0 < K := by omega
   have hkR : (0 : ℝ) < K := by exact_mod_cast hk
   have hkR' : (100000000000000000000 : ℝ) ≤ K := by exact_mod_cast hK
-  have h8 : 8/(K : ℝ) < (1/625000000 : ℝ) := (div_lt_iff₀ hkR).mpr (by linarith)
-  have h10 : 10/(K : ℝ) < (1/625000000 : ℝ) := (div_lt_iff₀ hkR).mpr (by linarith)
+  have h8 : 8/(K : ℝ) < (1/25000000000000 : ℝ) := (div_lt_iff₀ hkR).mpr (by linarith)
+  have h10 : 10/(K : ℝ) < (1/25000000000000 : ℝ) := (div_lt_iff₀ hkR).mpr (by linarith)
   obtain ⟨hB,hQ,hA,hP,hI⟩ := ledger_individual_bounds
-  have he : certificateExponent+(1/625000000 : ℝ)=softCertificate := by norm_num [certificateExponent,softCertificate]
+  have he : certificateExponent+(1/25000000000000 : ℝ)=softCertificate := by norm_num [certificateExponent,softCertificate]
   have hb : 2*bankEntropy/Hpi+8/K<softCertificate := by linarith
   have hq : 2-partitionEntropy/Hpi+2*queryEntropy/Hpi+10/K<softCertificate := by linarith
   have ha : 2*Halpha/Hpi+8/K<softCertificate := by linarith
@@ -184,7 +184,7 @@ theorem goodBlock_eventually {K : ℕ} (hK : 100000000000000000000 ≤ K) :
     (incidence_charge_tendsto hk).eventually (gt_mem_nhds hi)] with m hm hB hQ hA hP hI
   exact ⟨hm,hB,hQ,hA,hP,hI⟩
 
-theorem soft_certificate_margin : targetExponent-softCertificate=(1/156250000 : ℝ) := by
+theorem soft_certificate_margin : targetExponent-softCertificate=(1/6250000000000 : ℝ) := by
   norm_num [targetExponent,softCertificate]
 
 end ThreeSum.WeightedGlobalOversizeRates
